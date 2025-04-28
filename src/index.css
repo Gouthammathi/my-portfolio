@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply font-sora text-gray-200;
+    background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#e2a1f8] to-[#ffffff] text-transparent bg-clip-text;
+  }
+  
+  .gradient-border {
+    @apply border-transparent bg-gradient-to-r from-[#e2a1f8] to-[#ffffff] bg-clip-border;
+  }
+
+  .nav-link {
+    @apply text-[#888] hover:text-white transition-colors duration-300;
+  }
+
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  .page-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Smooth transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(226, 161, 248, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(226, 161, 248, 0.3);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(226, 161, 248, 0.5);
+}
