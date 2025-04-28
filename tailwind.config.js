@@ -6,9 +6,7 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sora: ['Sora', 'sans-serif'], // 👈 Add this
-      },
+      // You can add other customizations here if needed
     },
   },
   plugins: [],
