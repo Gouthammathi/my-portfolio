@@ -3,7 +3,7 @@
 
 @layer base {
   body {
-    @apply font-sora text-gray-200;
+    @apply font-sans text-gray-200;
     background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
   }
 }
