@@ -5,9 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      // You can add other customizations here if needed
-    },
+    extend: {},
   },
   plugins: [],
 }
