@@ -6,6 +6,7 @@ import Portfolio from './Pages/Portfolio'
 import AboutMe from './Pages/AboutMe'
 import Resume from './Pages/Resume'
 import Contact from './Pages/Contact'
+import Radio from "./Components/Radio";
 
 const App = () => {
   const [activeSection, setActiveSection] = React.useState('home');
@@ -35,24 +36,31 @@ const App = () => {
         <ProfileBox />
       </div>
       <div className="flex-grow flex flex-col min-h-screen">
-        <Header activeSection={activeSection} />
+        {/* Sticky Header on desktop, hidden on mobile */}
+        <div className="hidden md:block sticky top-0 z-30">
+          <Header activeSection={activeSection} />
+        </div>
         <main className="flex-grow overflow-y-auto scroll-smooth">
-          <section id="home" className="min-h-screen px-4 lg:px-8 pt-24">
+          <section id="home" className="min-h-screen px-4 ">
             <Home />
           </section>
-          <section id="portfolio" className="min-h-screen px-4 lg:px-8 pt-24">
+          <section id="portfolio" className="min-h-screen px-4 ">
             <Portfolio />
           </section>
-          <section id="about" className="min-h-screen px-4 lg:px-8 pt-24">
+          <section id="about" className="min-h-screen px-4 ">
             <AboutMe />
           </section>
-          <section id="resume" className="min-h-screen px-4 lg:px-8 pt-24">
+          <section id="resume" className="min-h-screen px-4 ">
             <Resume />
           </section>
-          <section id="contact" className="min-h-screen px-4 lg:px-8 pt-24">
+          <section id="contact" className="min-h-screen px-4 ">
             <Contact />
           </section>
         </main>
+      </div>
+      {/* Show Radio navigation only on mobile */}
+      <div className="block md:hidden w-full max-w-full">
+        <Radio />
       </div>
     </div>
   )

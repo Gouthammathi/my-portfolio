@@ -28,6 +28,15 @@
   .page-transition {
     @apply transition-all duration-300 ease-in-out;
   }
+
+  /* Responsive container classes */
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .responsive-text {
+    @apply text-base sm:text-lg lg:text-xl;
+  }
 }
 
 /* Smooth Scrolling */

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = () => {
+const Button = ({ children }) => {
   return (
     <StyledWrapper>
       <button>
-        Button
+        {children}
         <div className="star-1">
           <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1" style={{shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd'}} viewBox="0 0 784.11 815.53" xmlnsXlink="http://www.w3.org/1999/xlink">
             <defs />
@@ -68,16 +68,17 @@ const Button = () => {
 const StyledWrapper = styled.div`
   button {
     position: relative;
-    padding: 12px 35px;
-    background: #fec195;
-    font-size: 17px;
-    font-weight: 500;
+    padding: 8px 22px; /* smaller size */
+    background: linear-gradient(90deg, #fec195 0%, #ff8c42 100%);
+    font-size: 15px; /* smaller font */
+    font-weight: 600;
     color: #181818;
-    border: 3px solid #fec195;
-    border-radius: 8px;
-    box-shadow: 0 0 0 #fec1958c;
-    transition: all 0.3s ease-in-out;
+    border: 2px solid #fec195;
+    border-radius: 9999px; /* fully rounded */
+    box-shadow: 0 2px 8px #fec1958c;
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
     cursor: pointer;
+    letter-spacing: 0.5px;
   }
 
   .star-1 {

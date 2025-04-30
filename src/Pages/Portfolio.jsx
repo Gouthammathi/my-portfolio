@@ -1,51 +1,58 @@
 import React from 'react'
 import { ScrollAnimation } from '../Components/ScrollAnimation'
+import Cards from '../Components/Portfolio/Cards';
 
 const projects = [
   {
     id: 1,
-    title: "AI Chat Assistant",
-    description: "A sophisticated AI-powered chat interface built with React and OpenAI's GPT",
-    image: "/project1.jpg"
+    title: "Nike 3D Web-app",
+    image: "/src/Images/nike.png",
+    description: "A fully responsive and visually striking web application showcasing Nike products with interactive 3D models. Built using Three.js, the app offers an immersive user experience with a sleek and modern design. Optimized for all devices, it blends performance with aesthetics to engage users effectively.",
+    types: [
+      { label: "• React" },
+      { label: "• Three.js" }
+    ]
   },
   {
     id: 2,
-    title: "Machine Learning Dashboard",
-    description: "Real-time analytics dashboard for ML model performance monitoring",
-    image: "/project2.jpg"
+    title: "Emotion Detection",
+    image: "/src/Images/emotion.png",
+    description: "This project uses machine learning to detect human emotions by analyzing facial expressions. It can recognize feelings like happy, sad, angry, or surprised from images or live video. Built with tools like OpenCV and trained on emotion datasets, it shows the detected emotion with a simple and clear visual output.",
+    types: [
+      { label: "• Machine Learning " },
+      { label: "• Open CV" }
+    ]
   },
   {
     id: 3,
-    title: "Neural Network Visualizer",
-    description: "Interactive tool for visualizing neural network architectures",
-    image: "/project3.jpg"
+    title: "Pedestrain Detection",
+    image: "/src/Images/pede.png",
+    description: "A computer vision project that detects pedestrians in images or video using machine learning. It highlights people with bounding boxes to make them easy to spot. Built with OpenCV and trained models, it can be used in real-time for applications like smart surveillance or driver assistance systems.",
+    types: [
+      { label: "• NLP" },
+      { label: "• API Integration" }
+    ]
+  },
+  {
+    id: 4,
+    title: "Credit Card Fraud",
+    image: "/src/Images/credit.png",
+    description: "A machine learning project that identifies fraudulent credit card transactions by analyzing patterns in transaction data. It uses classification algorithms to detect suspicious activity with high accuracy, helping prevent financial fraud. The model was trained on real-world datasets and tested for performance using metrics like precision and recall.",
+    types: [
+      { label: "• React" },
+      { label: "• Responsive Design" }
+    ]
   }
 ];
 
-const Portfolio = () => {
+function Portfolio() {
   return (
-    <div className="min-h-screen">
-      <div className="flex flex-col items-center justify-center text-center h-full p-6">
-        <ScrollAnimation>
-          <h1 className="text-white text-4xl font-bold mb-6">Check out my featured projects</h1>
-        </ScrollAnimation>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ScrollAnimation key={project.id} delay={index * 0.2}>
-              <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
-                <div className="p-4">
-                  <h2 className="text-xl font-semibold text-white">{project.title}</h2>
-                  <p className="text-gray-300">{project.description}</p>
-                </div>
-              </div>
-            </ScrollAnimation>
-          ))}
-        </div>
-      </div>
+    <div className="grid grid-cols-1 gap-y-16 justify-items-center pb-24">
+      {projects.map((project, idx) => (
+        <Cards key={project.id} project={project} index={idx} />
+      ))}
     </div>
-  )
+  );
 }
 
-export default Portfolio
+export default Portfolio;
