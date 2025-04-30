@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProfileBox from './Components/ProfileBox'
 import Header from './Components/Header'
 import Home from './Pages/Home'
@@ -7,33 +7,38 @@ import AboutMe from './Pages/AboutMe'
 import Resume from './Pages/Resume'
 import Contact from './Pages/Contact'
 import Radio from "./Components/Radio";
+import UseBounceScroll from './Components/UseBounceScroll';
+
+const navOrder = ['home', 'portfolio', 'about', 'resume', 'contact'];
 
 const App = () => {
   const [activeSection, setActiveSection] = React.useState('home');
+  const bounceRef = UseBounceScroll();
 
-  const handleScroll = (e) => {
-    const sections = document.querySelectorAll('section');
-    const scrollPosition = window.scrollY;
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-
-      if (scrollPosition >= sectionTop - 100 && scrollPosition < sectionTop + sectionHeight - 100) {
-        setActiveSection(section.id);
-      }
-    });
-  };
-
-  React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  useEffect(() => {
+    const sections = ['home', 'portfolio', 'about', 'resume', 'contact'];
+    const sectionElements = sections.map(id => document.getElementById(id));
+    const observer = new window.IntersectionObserver(
+      entries => {
+        const visible = entries.filter(e => e.isIntersecting);
+        if (visible.length > 0) {
+          // Pick the section closest to the top
+          const topSection = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+          setActiveSection(topSection.target.id);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    sectionElements.forEach(el => el && observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-[#121212]">
+    <div ref={bounceRef} className="flex flex-col lg:flex-row min-h-screen bg-[#121212]">
       <div className="w-full lg:w-[380px] lg:flex-shrink-0 p-4 lg:p-6">
-        <ProfileBox />
+        <div className="flex justify-center mt-8 md:mt-0 pb-16">
+          <ProfileBox />
+        </div>
       </div>
       <div className="flex-grow flex flex-col min-h-screen">
         {/* Sticky Header on desktop, hidden on mobile */}
@@ -53,14 +58,14 @@ const App = () => {
           <section id="resume" className="min-h-screen px-4 ">
             <Resume />
           </section>
-          <section id="contact" className="min-h-screen px-4 ">
+          <section id="contact" className="min-h-screen px-4">
             <Contact />
           </section>
         </main>
       </div>
       {/* Show Radio navigation only on mobile */}
       <div className="block md:hidden w-full max-w-full">
-        <Radio />
+        <Radio activeIdx={navOrder.indexOf(activeSection)} />
       </div>
     </div>
   )

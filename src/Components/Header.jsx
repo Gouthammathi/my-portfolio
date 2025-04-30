@@ -12,63 +12,48 @@ const Header = ({ activeSection }) => {
       <nav className="flex items-center space-x-8">
         <button 
           onClick={() => scrollToSection('home')}
-          className={`transition-all duration-300 relative text-xl font-poppins tracking-wide ${
-            activeSection === 'home' ? 'text-white' : 'text-[#888] hover:text-white'
+          className={`transition-all duration-300 relative text-lg font-poppins tracking-wide px-3 py-1 ${
+            activeSection === 'home' ? 'text-white after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:bg-[#e2a1f8] after:rounded-full' : 'text-[#888] hover:text-white'
           }`}
         >
           <span className="relative z-10">Home</span>
-          {activeSection === 'home' && (
-            <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-[#e2a1f8]"></span>
-          )}
         </button>
         <button 
           onClick={() => scrollToSection('portfolio')}
-          className={`transition-all duration-300 relative text-xl font-poppins tracking-wide ${
-            activeSection === 'portfolio' ? 'text-white' : 'text-[#888] hover:text-white'
+          className={`transition-all duration-300 relative text-lg font-poppins tracking-wide px-3 py-1 ${
+            activeSection === 'portfolio' ? 'text-white after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:bg-[#e2a1f8] after:rounded-full' : 'text-[#888] hover:text-white'
           }`}
         >
           <span className="relative z-10">Portfolio</span>
-          {activeSection === 'portfolio' && (
-            <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-[#e2a1f8]"></span>
-          )}
         </button>
         <button 
           onClick={() => scrollToSection('about')}
-          className={`transition-all duration-300 relative text-xl font-poppins tracking-wide ${
-            activeSection === 'about' ? 'text-white' : 'text-[#888] hover:text-white'
+          className={`transition-all duration-300 relative text-lg font-poppins tracking-wide px-3 py-1 ${
+            activeSection === 'about' ? 'text-white after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:bg-[#e2a1f8] after:rounded-full' : 'text-[#888] hover:text-white'
           }`}
         >
           <span className="relative z-10">About Me</span>
-          {activeSection === 'about' && (
-            <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-[#e2a1f8]"></span>
-          )}
         </button>
         <button 
           onClick={() => scrollToSection('resume')}
-          className={`transition-all duration-300 relative text-xl font-poppins tracking-wide ${
-            activeSection === 'resume' ? 'text-white' : 'text-[#888] hover:text-white'
+          className={`transition-all duration-300 relative text-lg font-poppins tracking-wide px-3 py-1 ${
+            activeSection === 'resume' ? 'text-white after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:bg-[#e2a1f8] after:rounded-full' : 'text-[#888] hover:text-white'
           }`}
         >
           <span className="relative z-10">Resume</span>
-          {activeSection === 'resume' && (
-            <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-[#e2a1f8]"></span>
-          )}
         </button>
         <button 
           onClick={() => scrollToSection('contact')}
-          className={`transition-all duration-300 relative text-xl font-poppins tracking-wide ${
-            activeSection === 'contact' ? 'text-white' : 'text-[#888] hover:text-white'
+          className={`transition-all duration-300 relative text-lg font-poppins tracking-wide px-3 py-1 ${
+            activeSection === 'contact' ? 'text-white after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:bg-[#e2a1f8] after:rounded-full' : 'text-[#888] hover:text-white'
           }`}
         >
           <span className="relative z-10">Contact</span>
-          {activeSection === 'contact' && (
-            <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-[#e2a1f8]"></span>
-          )}
         </button>
       </nav>
 
       {/* CTA Button */}
-      <StyledWrapper>
+      {/* <StyledWrapper>
         <button className="button">
           <span className="text">Let's Talk</span>
           <span className="svg">
@@ -77,7 +62,7 @@ const Header = ({ activeSection }) => {
             </svg>
           </span>
         </button>
-      </StyledWrapper>
+      </StyledWrapper> */}
     </header>
   )
 }
@@ -168,3 +153,4 @@ const StyledWrapper = styled.div`
 `;
 
 export default Header
+

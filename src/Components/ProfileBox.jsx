@@ -14,7 +14,7 @@ const ProfileBox = () => {
       {/* Profile Image */}
       <div className="w-full h-[200px] lg:h-[240px] rounded-3xl overflow-hidden mb-3 bg-[#e2a1f8] bg-opacity-10 flex-shrink-0">
         <img
-          src="src\Images\profile.jpg"
+          src="\Images\profile.jpg"
           alt="Profile"
           className="w-full h-full object-cover"
         />
