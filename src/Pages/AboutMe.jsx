@@ -4,7 +4,7 @@ import Download from '../Components/Buttons/Download'
 
 function StatCard({ value, label }) {
   return (
-    <div className="bg-black/70 rounded-3xl p-8 flex flex-col items-center shadow-xl hover:scale-105 transition-transform duration-300">
+    <div className="bg-black/70 rounded-3xl p-8 flex flex-col items-center shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300">
       <span className="text-5xl font-extrabold text-[#e6cfff] mb-2">{value}</span>
       <span className="text-lg text-white/80 font-medium text-center">{label}</span>
     </div>
@@ -24,22 +24,10 @@ const AboutMe = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
+      {/* Profile/Intro and Contact Info section moved to the top */}
       <section className="w-full rounded-3xl bg-gradient-to-br from-[#2e2d2d] via-[#a18cd1]/30 to-[#fbc2eb]/20 p-8 md:p-12 flex flex-col gap-12 mb-12 shadow-2xl">
         <button className="px-5 py-2 rounded-full bg-black/60 text-white font-semibold shadow-lg hover:bg-black/80 transition w-fit mb-3">About Me</button>
         <h2 className="text-4xl md:text-6xl font-bold text-left text-[#e6cfff] mb-2">Turning complex problems<br/>into simple solutions</h2>
-        {/* Stats Grid with ScrollAnimation */}
-        <ScrollAnimation>
-          <section className="my-12">
-            <ScrollAnimation delay={0.1}>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <StatCard value="5+" label="Completed mock projects" />
-                <StatCard value="7+" label="Months of Internship experience " />
-                <StatCard value="10+" label="Certifications in Emerging Technologies" />
-              </div>
-            </ScrollAnimation>
-          </section>
-        </ScrollAnimation>
-        {/* Profile/Intro and Contact Info Side by Side */}
         <div className="flex flex-col md:flex-row gap-12">
           {/* Left: Quote and Description */}
           <div className="flex-1 flex flex-col justify-between">
@@ -94,34 +82,78 @@ const AboutMe = () => {
           </div>
         </div>
       </section>
-      <div className="mt-8">
-        <section className="w-full rounded-3xl bg-gradient-to-br from-[#2e2d2d] via-[#a18cd1]/30 to-[#fbc2eb]/20 p-8 md:p-12 flex flex-col gap-8 shadow-2xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Card 1: Frontend Development */}
-            <div className="bg-gradient-to-br from-[#232336] via-[#2e2d2d]/80 to-[#18181b] rounded-3xl shadow-2xl border border-[#a18cd1]/30 p-10 flex flex-col h-full justify-between relative overflow-hidden">
-              <div>
-                <h4 className="text-3xl font-extrabold text-white mb-4 text-left">Frontend development</h4>
-                <div className="flex gap-3 mb-6">
-                  <span className="backdrop-blur-md bg-white/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-6 py-2 rounded-full text-base font-semibold shadow-md hover:bg-[#e2a1f8]/20 transition-all">UI/UX Design</span>
-                  <span className="backdrop-blur-md bg-white/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-6 py-2 rounded-full text-base font-semibold shadow-md hover:bg-[#e2a1f8]/20 transition-all">Design to Code</span>
-                </div>
-                <p className="text-white/80 text-lg mb-8 text-left">I work with HTML/CSS, Framer and WordPress.</p>
-              </div>
-              <div className="flex-1" /> {/* Blank space for balance */}
-              <img src="/Images/credit.png" alt="Frontend Showcase" className="w-full h-32 object-contain rounded-2xl bg-[#18181b] p-2 mt-8 shadow-lg" />
+      {/* The rest of your sections (stats grid, cards, etc.) now come after */}
+      {/* Stats Grid with ScrollAnimation */}
+      <ScrollAnimation>
+        <section className="my-12">
+          <ScrollAnimation delay={0.1}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <StatCard value="5+" label="Completed mock projects" />
+              <StatCard value="7+" label="Months of Internship experience " />
+              <StatCard value="10+" label="Certifications in Emerging Technologies" />
             </div>
-            {/* Card 2: Digital Art & Graphic Design */}
-            <div className="bg-gradient-to-br from-[#232336] via-[#2e2d2d]/80 to-[#18181b] rounded-3xl shadow-2xl border border-[#a18cd1]/30 p-10 flex flex-col h-full justify-between relative overflow-hidden">
-              <div>
-                <h4 className="text-3xl font-extrabold text-white mb-4 text-left">Digital art and graphic design</h4>
-                <div className="flex gap-3 mb-6">
-                  <span className="backdrop-blur-md bg-white/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-6 py-2 rounded-full text-base font-semibold shadow-md hover:bg-[#e2a1f8]/20 transition-all">Illustrations</span>
-                  <span className="backdrop-blur-md bg-white/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-6 py-2 rounded-full text-base font-semibold shadow-md hover:bg-[#e2a1f8]/20 transition-all">AI Experiments</span>
-                </div>
-                <p className="text-white/80 text-lg mb-8 text-left">I use Adobe Photoshop, Fresco and Blender to create illustrations and 3D renders for my clients and stocks.</p>
+          </ScrollAnimation>
+        </section>
+      </ScrollAnimation>
+      <div className="mt-8 pb-26">
+        <section className="w-full rounded-3xl bg-gradient-to-br from-[#2e2d2d] via-[#a18cd1]/30 to-[#fbc2eb]/20 p-6 md:p-10 flex flex-col gap-8 shadow-2xl">
+          <h3 className="text-2xl md:text-3xl font-bold text-[#e6cfff] mb-6 text-left">Specialization</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {/* Card 1: Artificial Intelligence */}
+            <div className="relative bg-gradient-to-br from-[#232336] via-[#2e2d2d]/80 to-[#18181b] rounded-2xl shadow-xl border border-[#a18cd1]/30 p-7 flex flex-col h-full justify-between overflow-hidden transition-transform hover:scale-105 hover:shadow-[0_8px_32px_#e2a1f899]">
+              <div className="flex items-center gap-3 mb-4">
+                <h4 className="text-xl md:text-2xl font-extrabold text-white text-left">Artificial Intelligence</h4>
               </div>
-              <div className="flex-1" /> {/* Blank space for balance */}
-              <img src="/Images/emotion.png" alt="Digital Art Showcase" className="w-full h-32 object-contain rounded-2xl bg-[#18181b] p-2 mt-8 shadow-lg" />
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="bg-[#e2a1f8]/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-2 py-0.5 rounded-full text-xs font-semibold shadow">Computer Vision</span>
+                <span className="bg-[#e2a1f8]/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-2 py-0.5 rounded-full text-xs font-semibold shadow">Real impact</span>
+              </div>
+              <p className="text-white/90 text-base md:text-lg mb-4 text-left leading-relaxed">
+                <span className="font-semibold ">Intelligent systems crafted with cutting-edge AI technologies</span>
+              </p>
+              <img src="/Images/AI.png" alt="Frontend Showcase" className="w-full h-40 object-cover rounded-xl mt-2 shadow-md" />
+            </div>
+            {/* Card 2: Machine Learning */}
+            <div className="relative bg-gradient-to-br from-[#232336] via-[#2e2d2d]/80 to-[#18181b] rounded-2xl shadow-xl border border-[#a18cd1]/30 p-7 flex flex-col h-full justify-between overflow-hidden transition-transform hover:scale-105 hover:shadow-[0_8px_32px_#e2a1f899]">
+              <div className="flex items-center gap-3 mb-4">
+                <h4 className="text-xl md:text-2xl font-extrabold text-white text-left">Machine Learning</h4>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="bg-[#e2a1f8]/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-2 py-0.5 rounded-full text-xs font-semibold shadow">Smart System</span>
+                <span className="bg-[#e2a1f8]/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-2 py-0.5 rounded-full text-xs font-semibold shadow">Model Training</span>
+              </div>
+              <p className="text-white/90 text-base md:text-lg mb-4 text-left leading-relaxed">
+                <span className="font-semibold text-">I develop smart solutions powered by advanced Machine Learning.</span>
+              </p>
+              <img src="/Images/ML.png" alt="Digital Art Showcase" className="w-full h-40 object-cover rounded-xl mt-2 shadow-md" />
+            </div>
+            {/* Card 3: Data Analytics */}
+            <div className="relative bg-gradient-to-br from-[#232336] via-[#2e2d2d]/80 to-[#18181b] rounded-2xl shadow-xl border border-[#a18cd1]/30 p-7 flex flex-col h-full justify-between overflow-hidden transition-transform hover:scale-105 hover:shadow-[0_8px_32px_#e2a1f899]">
+              <div className="flex items-center gap-3 mb-4">
+                <h4 className="text-xl md:text-2xl font-extrabold text-white text-left">Web Development</h4>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="bg-[#e2a1f8]/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-2 py-0.5 rounded-full text-xs font-semibold shadow">Responsive</span>
+                <span className="bg-[#e2a1f8]/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-2 py-0.5 rounded-full text-xs font-semibold shadow">Fullstack</span>
+              </div>
+              <p className="text-white/90 text-base md:text-lg mb-4 text-left leading-relaxed">
+                <span className="font-semibold ">I create Arrtactive and Interactive fully responsive Web-apps</span> 
+              </p>
+              <img src="/Images/web.png" alt="Data Analytics Showcase" className="w-full h-40 object-cover rounded-xl mt-2 shadow-md" />
+            </div>
+            {/* Card 4: Digital Art & Design */}
+            <div className="relative bg-gradient-to-br from-[#232336] via-[#2e2d2d]/80 to-[#18181b] rounded-2xl shadow-xl border border-[#a18cd1]/30 p-7 flex flex-col h-full justify-between overflow-hidden transition-transform hover:scale-105 hover:shadow-[0_8px_32px_#e2a1f899]">
+              <div className="flex items-center gap-3 mb-4">
+                <h4 className="text-xl md:text-2xl font-extrabold text-white text-left">Graphic Design</h4>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="bg-[#e2a1f8]/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-2 py-0.5 rounded-full text-xs font-semibold shadow">Illustration</span>
+                <span className="bg-[#e2a1f8]/10 border border-[#e2a1f8]/40 text-[#e6cfff] px-2 py-0.5 rounded-full text-xs font-semibold shadow">Designing</span>
+              </div>
+              <p className="text-white/90 text-base md:text-lg mb-4 text-left leading-relaxed">
+                <span className="font-semibold ">Creative visuals and branding</span> 
+              </p>
+              <img src="/Images/graphic.png" alt="Digital Art Showcase" className="w-full h-40 object-cover rounded-xl mt-2 shadow-md" />
             </div>
           </div>
         </section>
