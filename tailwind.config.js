@@ -6,9 +6,12 @@ export default {
   ],
   theme: {
     extend: {
+      // Temporarily comment out fontFamily extension
+      /*
       fontFamily: {
         sans: ['Sora', 'sans-serif'], // Keep existing font
       },
+      */
       colors: {
         // New Color Palette
         'navy': '#0A192F',        // Deep navy background
