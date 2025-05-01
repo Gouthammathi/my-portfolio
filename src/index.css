@@ -17,6 +17,7 @@
     @apply font-sans text-light-gray bg-navy;
     /* Ensure font-family is explicitly set if needed, though Tailwind applies it via font-sans */
     /* font-family: 'Sora', sans-serif; */
+    font-family: 'Sora', sans-serif; 
   }
 }
 
