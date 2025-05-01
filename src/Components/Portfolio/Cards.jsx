@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
+import { motion } from 'framer-motion'; // Import motion
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-// Video Preview Component (minor adjustments)
+// Video Preview Component (remains mostly the same, ensure colors fit)
 function VideoPreview({ src, poster }) {
   const videoRef = useRef(null);
   return (
@@ -9,13 +10,12 @@ function VideoPreview({ src, poster }) {
       ref={videoRef}
       src={src}
       poster={poster}
-      className="w-full h-full object-cover cursor-pointer" // Simplified classes
+      className="w-full h-full object-cover cursor-pointer"
       muted
-      loop // Added loop for continuous preview
+      loop
       preload="metadata"
-      onMouseEnter={() => videoRef.current?.play()} // Optional chaining
-      onMouseLeave={() => videoRef.current?.pause()} // Optional chaining
-      // Removed onMouseOut as onMouseLeave covers it
+      onMouseEnter={() => videoRef.current?.play()}
+      onMouseLeave={() => videoRef.current?.pause()}
     />
   );
 }
@@ -23,49 +23,59 @@ function VideoPreview({ src, poster }) {
 const Cards = ({ project, align }) => {
   // Determine hover direction class based on alignment
   const hoverEffect = align === 'right'
-    ? 'md:group-hover:-rotate-y-3'
-    : 'md:group-hover:rotate-y-3';
+    ? 'md:group-hover:-rotate-y-2' // Reduced rotation slightly
+    : 'md:group-hover:rotate-y-2';
+
+  // Animation variant for the card itself
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  };
 
   return (
-    // Replaced StyledWrapper with Tailwind classes
-    // Added group class for hover effects
-    <article
+    // Replaced article with motion.article and added variants
+    <motion.article
+      variants={cardVariants} // Apply animation variants
+      // Removed initial/whileInView/viewport as it's handled by parent in Portfolio.jsx
       className={`
-        group w-full max-w-3xl mx-auto 
-        flex flex-col md:flex-row ${align === 'right' ? 'md:flex-row-reverse' : ''} 
-        bg-gradient-to-br from-[#232336] via-[#2e2d2d]/80 to-[#18181b] 
-        rounded-xl md:rounded-2xl 
-        shadow-lg md:shadow-xl 
-        border border-[#232336] 
-        overflow-hidden 
-        transition-all duration-350 ease-out 
-        hover:shadow-[0_16px_48px_rgba(161,140,209,0.3)] /* Adjusted hover shadow */
-        hover:border-[#a18cd1]/50 
-        md:hover:scale-[1.03] md:hover:-translate-y-2 
+        group w-full max-w-3xl mx-auto
+        flex flex-col md:flex-row ${align === 'right' ? 'md:flex-row-reverse' : ''}
+        // Updated background, border, shadow colors
+        bg-charcoal/80
+        rounded-xl md:rounded-2xl
+        shadow-lg md:shadow-xl
+        border border-dark-gray
+        overflow-hidden
+        transition-all duration-350 ease-out
+        // Updated hover shadow and border
+        hover:shadow-[0_10px_30px_rgba(99,179,237,0.2)]
+        hover:border-steel-blue/70
+        md:hover:scale-[1.02] md:hover:-translate-y-1 // Adjusted hover transform
         ${hoverEffect} /* Apply perspective rotation */
         transform-style-3d /* Enable 3D transforms */
       `}
     >
-      {/* Image/Video Section - Adjusted responsive sizing and rounding */}
-      <div className="w-full md:w-[340px] h-48 md:h-auto flex-shrink-0 bg-[#18181b] overflow-hidden">
+      {/* Image/Video Section - Updated background */}
+      <div className="w-full md:w-[340px] h-48 md:h-auto flex-shrink-0 bg-dark-gray overflow-hidden">
         <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
           {project.video ? (
             <VideoPreview src={project.video} poster={project.image} />
           ) : (
-            <img src={project.image} alt={project.title} className="w-full h-full object-cover cursor-pointer" />
+            <img src={project.image} alt={project.title} className="w-full h-full object-cover cursor-pointer transition-transform duration-300 group-hover:scale-105" /> // Added image scale on hover
           )}
         </a>
       </div>
 
-      {/* Project Info Section - Adjusted padding and text sizes */}
+      {/* Project Info Section */}
       <div className="flex flex-col justify-start p-6 md:p-8 gap-3 md:gap-4 flex-grow">
-        {/* Title and Link */}
+        {/* Title and Link - Updated text colors */}
         <div className="flex items-center gap-3">
           <a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xl md:text-2xl font-bold text-[#e6cfff] hover:underline focus:underline outline-none truncate" // Added truncate
+            // Updated text color and hover
+            className="text-xl md:text-2xl font-bold text-off-white hover:text-accent-blue focus:text-accent-blue outline-none truncate transition-colors"
             aria-label={`Visit project: ${project.title}`}
           >
             {project.title}
@@ -74,31 +84,33 @@ const Cards = ({ project, align }) => {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#e6cfff]/80 hover:text-[#e6cfff] transition-colors duration-200 flex-shrink-0"
+            // Updated icon color and hover
+            className="text-light-gray/70 hover:text-accent-blue transition-colors duration-200 flex-shrink-0"
             aria-label={`Open ${project.title} in new tab`}
           >
-            <FaExternalLinkAlt size={16} /> {/* Adjusted size */}
+            <FaExternalLinkAlt size={16} />
           </a>
         </div>
 
-        {/* Description - Adjusted text size, added max-height and scroll */}
-        <p className="text-sm md:text-base text-gray-300 leading-relaxed md:max-h-24 md:overflow-y-auto custom-scrollbar">
+        {/* Description - Updated text color and scrollbar (needs CSS) */}
+        <p className="text-sm md:text-base text-light-gray leading-relaxed md:max-h-24 md:overflow-y-auto custom-scrollbar-new">
           {project.description}
         </p>
 
-        {/* Tags - Adjusted styling */}
-        <div className="flex flex-wrap gap-2 mt-auto pt-2"> {/* Pushes tags to bottom */}
+        {/* Tags - Updated background, border, text colors */}
+        <div className="flex flex-wrap gap-2 mt-auto pt-2">
           {project.types.map((type, i) => (
             <span
               key={i}
-              className="inline-block px-3 py-1 rounded-full bg-[#e2a1f8]/10 border border-[#e2a1f8]/30 text-[#e6cfff] text-xs font-medium shadow-sm"
+              // Updated background, border, text colors
+              className="inline-block px-3 py-1 rounded-full bg-dark-gray/70 border border-steel-blue/40 text-accent-blue text-xs font-medium shadow-sm"
             >
               {type.label}
             </span>
           ))}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 };
 
@@ -106,20 +118,19 @@ const Cards = ({ project, align }) => {
 /*
 @layer utilities {
   .transform-style-3d { transform-style: preserve-3d; }
-  .rotate-y-3 { transform: rotateY(3deg); }
-  .-rotate-y-3 { transform: rotateY(-3deg); }
-  .custom-scrollbar::-webkit-scrollbar {
-     width: 5px;
+  .rotate-y-2 { transform: rotateY(2deg); }
+  .-rotate-y-2 { transform: rotateY(-2deg); }
+  .custom-scrollbar-new::-webkit-scrollbar {
+     @apply w-[5px];
   }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+  .custom-scrollbar-new::-webkit-scrollbar-track {
+    @apply bg-transparent;
   }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-     background: rgba(226, 161, 248, 0.3);
-     border-radius: 10px;
+  .custom-scrollbar-new::-webkit-scrollbar-thumb {
+     @apply bg-steel-blue/40 rounded;
   }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-     background: rgba(226, 161, 248, 0.5);
+  .custom-scrollbar-new::-webkit-scrollbar-thumb:hover {
+     @apply bg-steel-blue/60;
   }
 }
 */

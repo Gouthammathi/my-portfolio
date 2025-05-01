@@ -3,71 +3,98 @@
 
 @layer base {
   html {
-    @apply scroll-smooth scroll-pt-20; /* Added scroll-padding-top */
+    @apply scroll-smooth scroll-pt-20;
   }
   body {
-    @apply font-sans text-gray-200 bg-[#121212]; /* Use theme background */
-    /* Removed radial-gradient, assuming #121212 is the desired base */
-    font-family: 'Sora', sans-serif; /* Ensure Sora font is applied */
+    /* Updated base colors */
+    @apply font-sans text-light-gray bg-navy;
+    font-family: 'Sora', sans-serif;
   }
 }
 
 @layer utilities {
+  /* Update gradient-text if needed, or remove if replacing */
   .gradient-text {
-    @apply bg-gradient-to-r from-[#e2a1f8] to-[#a18cd1] text-transparent bg-clip-text; /* Adjusted gradient */
+    /* Example using new accents */
+    @apply bg-gradient-to-r from-accent-blue to-accent-orange text-transparent bg-clip-text;
   }
 
-  .gradient-border {
-    @apply border-transparent bg-gradient-to-r from-[#e2a1f8] to-[#a18cd1] bg-clip-border;
-  }
-
+  /* Keep nav-link structure, update colors */
   .nav-link {
-    @apply text-gray-400 hover:text-white transition-colors duration-300; /* Adjusted base color */
+    @apply text-light-gray hover:text-off-white transition-colors duration-300;
   }
 
-  /* Removed .scroll-smooth as it's applied to html in base */
+  /* Added for Portfolio Cards */
+  .transform-style-3d { transform-style: preserve-3d; }
+  .rotate-y-2 { transform: rotateY(2deg); }
+  .-rotate-y-2 { transform: rotateY(-2deg); }
 
-  .page-transition {
-    @apply transition-opacity duration-300 ease-in-out;
+  /* Custom scrollbar for project description */
+  .custom-scrollbar-new::-webkit-scrollbar {
+     @apply w-[5px];
   }
-
-  /* Responsive container classes - Consider defining in tailwind.config.js if used widely */
-  .container-padding {
-    @apply px-4 sm:px-6 lg:px-8;
+  .custom-scrollbar-new::-webkit-scrollbar-track {
+    @apply bg-transparent;
   }
-
-  .responsive-text {
-    @apply text-base sm:text-lg lg:text-xl;
+  .custom-scrollbar-new::-webkit-scrollbar-thumb {
+     /* Updated colors */
+     @apply bg-steel-blue/40 rounded;
   }
-
-  /* Simplified page transitions */
-  .page-enter {
-    @apply opacity-0;
+  .custom-scrollbar-new::-webkit-scrollbar-thumb:hover {
+     /* Updated colors */
+     @apply bg-steel-blue/60;
   }
-  .page-enter-active {
-    @apply opacity-100;
-  }
-  .page-exit {
-    @apply opacity-100;
-  }
-  .page-exit-active {
-    @apply opacity-0;
+  /* Added inner shadow utility */
+  .shadow-inner-custom {
+    box-shadow: inset 0 2px 6px 0 rgba(0, 0, 0, 0.3);
   }
 }
 
-/* Custom Scrollbar - Refined */
+/* Custom Scrollbar - Update colors (Global scrollbar) */
 ::-webkit-scrollbar {
-  @apply w-2; /* width: 8px */
+  @apply w-2;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-white/5 rounded; /* Subtle track */
+  @apply bg-charcoal/50 rounded;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gradient-to-b from-[#e2a1f8]/50 to-[#a18cd1]/50 rounded transition-colors duration-300;
+  /* Example using steel-blue */
+  @apply bg-steel-blue/60 rounded transition-colors duration-300;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply from-[#e2a1f8]/70 to-[#a18cd1]/70;
+  @apply bg-steel-blue/80;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-navy text-light-gray font-sans;
+  }
+}
+
+@layer utilities {
+  .transform-style-3d { transform-style: preserve-3d; }
+  .rotate-y-2 { transform: rotateY(2deg); }
+  .-rotate-y-2 { transform: rotateY(-2deg); }
+  .custom-scrollbar-new::-webkit-scrollbar {
+     @apply w-[5px];
+  }
+  .custom-scrollbar-new::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .custom-scrollbar-new::-webkit-scrollbar-thumb {
+     @apply bg-steel-blue/40 rounded;
+  }
+  .custom-scrollbar-new::-webkit-scrollbar-thumb:hover {
+     @apply bg-steel-blue/60;
+  }
+  /* Added inner shadow utility */
+  .shadow-inner-custom {
+    box-shadow: inset 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+  }
 }

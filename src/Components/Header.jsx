@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { motion } from 'framer-motion'; // Import motion
 
 const navItems = [
   { id: 'home', label: 'Home' },
@@ -11,41 +12,44 @@ const navItems = [
 const Header = ({ activeSection }) => {
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
-    // Added check for section existence
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    // Adjusted padding, removed sticky/z-index (handled in App.jsx)
-    <nav className="flex items-center justify-center py-4 px-8">
-      <div className="flex items-center space-x-3"> {/* Reduced space slightly */}
+    // Added motion.nav for subtle entrance
+    <motion.nav
+      initial={{ y: -50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex items-center justify-center py-4 px-8"
+    >
+      {/* Updated background, border, text, hover, focus, and active colors */}
+      <div className="flex items-center space-x-3 bg-charcoal/60 backdrop-blur-md p-2 rounded-full border border-steel-blue/30 shadow-lg">
         {navItems.map((item) => (
           <button
             key={item.id}
             onClick={() => scrollToSection(item.id)}
-            // Replaced GlassButton with Tailwind classes
             className={`
-              relative px-6 py-2 rounded-full 
-              bg-white/10 backdrop-blur-md 
-              border border-white/15 
-              text-white font-semibold text-sm tracking-wide /* Adjusted text size/tracking */
-              shadow-md hover:shadow-lg 
-              transition-all duration-250 ease-out /* Adjusted transition */
-              hover:bg-white/20 hover:scale-105 
-              active:scale-95 active:bg-white/30 
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fbc2eb] focus:ring-offset-[#121212] 
-              ${activeSection === item.id ? 'ring-2 ring-white shadow-lg scale-105' : ''} /* Highlight active */
+              relative px-5 py-1.5 rounded-full
+              text-light-gray font-medium text-sm tracking-wide
+              transition-all duration-250 ease-out
+              hover:text-off-white hover:bg-dark-gray/70
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-blue focus:ring-offset-charcoal
+              ${activeSection === item.id
+                ? 'bg-accent-blue text-navy shadow-md scale-105' // Active state with new colors
+                : 'bg-transparent' // Default state
+              }
             `}
           >
             {item.label}
           </button>
         ))}
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
-export default Header
+export default Header;
 
