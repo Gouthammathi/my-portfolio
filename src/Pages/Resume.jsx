@@ -1,142 +1,182 @@
-import React from 'react'
-import { ScrollAnimation } from '../Components/ScrollAnimation'
+import React from 'react';
+import { ScrollAnimation } from '../Components/ScrollAnimation';
+import { FaExternalLinkAlt } from 'react-icons/fa'; // Added for website link
+// Removed Button3 import
 
-const Resume = () => {
+// Reusable Timeline Item Component
+function TimelineItem({ year, title, institution, description }) {
   return (
-    <div className="min-h-screen">
-      <div className="max-w-4xl mx-auto px-6">
-        <section className="w-full rounded-3xl bg-gradient-to-br from-[#2e2d2d] via-[#a18cd1]/30 to-[#fbc2eb]/20 p-8 md:p-12 flex flex-col gap-8 mb-12 shadow-2xl">
-          <button className="px-5 py-2 rounded-full bg-black/60 text-white font-semibold shadow-lg hover:bg-black/80 transition w-fit mb-3">Resume</button>
-          <h2 className="text-4xl md:text-6xl font-bold text-left text-[#e6cfff] mb-2">Education and practical<br/>experience</h2>
-          <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-6">
-            Be what you would seem to be - or, if you'd like it put more simply - never imagine yourself not to be otherwise than what it might appear to others that what you were or might have been was not otherwise than what you had been would have appeared to them to be otherwise.
-          </p>
-        </section>
-        
-        
-        <ScrollAnimation delay={0.6}>
-          <section className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-10 text-left">My Education</h2>
-            <div className="divide-y divide-white/10">
-              {/* Education Item 1 */}
-              <div className="flex flex-col md:flex-row md:items-center py-8 gap-6">
-                <div className="md:w-1/4 text-white/70 text-base md:text-lg font-semibold mb-2 md:mb-0"> 2019</div>
-                <div className="md:w-1/2">
-                  <div className="text-xl md:text-2xl font-bold text-white mb-1">Primary & Secondary Schooling</div>
-                  <div className="text-white/60 text-sm mb-2"><span className="font-bold">Aditya High School</span></div>
-                </div>
-                <div className="md:w-1/4 text-white/80 text-base md:text-lg">Completed foundational education with a focus on mathematics, science, and communication skills.</div>
-              </div>
-              {/* Education Item 2 */}
-              <div className="flex flex-col md:flex-row md:items-center py-8 gap-6">
-                <div className="md:w-1/4 text-white/70 text-base md:text-lg font-semibold mb-2 md:mb-0">2019 - 2021</div>
-                <div className="md:w-1/2">
-                  <div className="text-xl md:text-2xl font-bold text-white mb-1">Intermediate (MPC)</div>
-                  <div className="text-white/60 text-sm mb-2"><span className="font-bold">Sri Chaitanya Junior College</span></div>
-                </div>
-                <div className="md:w-1/4 text-white/80 text-base md:text-lg">Specialized in Mathematics, Physics, and Chemistry, preparing for engineering entrance exams.</div>
-              </div>
-              {/* Education Item 3 */}
-              <div className="flex flex-col md:flex-row md:items-center py-8 gap-6">
-                <div className="md:w-1/4 text-white/70 text-base md:text-lg font-semibold mb-2 md:mb-0">2021 - 2025</div>
-                <div className="md:w-1/2">
-                  <div className="text-xl md:text-2xl font-bold text-white mb-1">Bachelor of Technology (B.Tech), Computer Science & Engineering (AI&ML)</div>
-                  <div className="text-white/60 text-sm mb-2"><span className="font-bold">Malla Reddy University</span></div>
-                </div>
-                <div className="md:w-1/4 text-white/80 text-base md:text-lg">Pursuing a degree in Computer Science & Engineering with a focus on AI, ML, and software development.</div>
-              </div>
+    <div className="relative pl-8 pb-8 border-l border-[#a18cd1]/30 last:border-l-transparent last:pb-0">
+      {/* Dot */}
+      <div className="absolute left-[-9px] top-[5px] w-4 h-4 rounded-full bg-gradient-to-br from-[#fbc2eb] to-[#a18cd1] border-2 border-[#121212]"></div>
+      {/* Content */}
+      <p className="text-sm text-[#e6cfff] font-semibold mb-1">{year}</p>
+      <h4 className="text-lg md:text-xl font-bold text-white mb-1">{title}</h4>
+      <p className="text-sm text-white/70 mb-2">{institution}</p>
+      <p className="text-sm text-white/60 leading-relaxed">{description}</p>
+    </div>
+  );
+}
+
+// Reusable Skill Category Component
+function SkillCategory({ title, skills }) {
+  return (
+    <div className="bg-gradient-to-br from-[#232336]/80 via-[#2e2d2d]/50 to-[#18181b]/80 rounded-xl md:rounded-2xl p-6 shadow-lg border border-[#a18cd1]/20">
+      <h4 className="text-lg md:text-xl font-semibold text-white mb-5 text-left">{title}</h4>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+        {skills.map((skill) => (
+          <div key={skill.name} className="flex items-center gap-3 group">
+            <img
+              src={skill.icon}
+              alt={`${skill.name} icon`}
+              aria-label={`${skill.name} icon`}
+              className="w-6 h-6 object-contain transition-transform duration-200 group-hover:scale-110"
+            />
+            <span className="text-sm text-white/80 group-hover:text-white transition-colors duration-200">{skill.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Main Resume Component
+const Resume = () => {
+  const education = [
+    { year: '2021 - 2025', title: 'B.Tech CSE (AI & ML)', institution: 'MRU', description: 'Pursuing specialization in Artificial Intelligence and Machine Learning, focusing on core computer science principles alongside advanced AI concepts.' },
+    { year: '2019 - 2021', title: 'Intermediate MPC', institution: 'Sri Chaitanya Jr College', description: 'Completed intermediate education with a focus on Mathematics, Physics, and Chemistry, building a strong foundation for engineering studies.' },
+    { year: '2019', title: 'Schooling', institution: 'Aditya High School', description: 'Completed secondary school education, achieving a strong academic record.' },
+  ];
+
+  // Removed the placeholder from experience
+  const experience = [
+    { year: 'Oct 2024 - Present', title: 'AI Intern', institution: 'Artihcus Global', description: 'Gaining hands-on experience in AI development, working on real-world projects involving machine learning models and data analysis.' },
+    // Add more experience if available
+  ];
+
+  const frontendSkills = [
+    { name: 'HTML', icon: '/icons/html.png' },
+    { name: 'CSS', icon: '/icons/css.png' },
+    { name: 'JavaScript', icon: '/icons/js.png' },
+    { name: 'React', icon: '/icons/react.png' },
+    // Add Tailwind if applicable
+  ];
+
+  const backendSkills = [
+    { name: 'Node.js', icon: '/icons/node.png' },
+    { name: 'Python', icon: '/icons/python.png' },
+    { name: 'Java', icon: '/icons/java.png' },
+    { name: 'SQL', icon: '/icons/sql.png' },
+    { name: 'C', icon: '/icons/C.png' },
+  ];
+
+  const designSkills = [
+    { name: 'Figma', icon: '/icons/figma.png' },
+    { name: 'Illustrator', icon: '/icons/illustrator.png' },
+    // Add other design tools if applicable
+  ];
+
+  return (
+    <div className="w-full max-w-5xl mx-auto px-4 lg:px-0 pb-16">
+      <ScrollAnimation delay={0.1}>
+        <div className="flex flex-col items-start gap-4 mb-10">
+          {/* Replaced Button3 with a simple tag */}
+          <span className="inline-block px-5 py-1.5 rounded-full bg-gradient-to-r from-[#e2a1f8]/20 to-[#a18cd1]/20 border border-white/20 text-sm font-semibold text-white shadow-md">
+            Resume
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-left text-white leading-tight">
+            Education & Experience
+          </h2>
+        </div>
+      </ScrollAnimation>
+
+      {/* Education & Experience Timeline */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 mb-12 md:mb-16">
+        <ScrollAnimation delay={0.2}>
+          <section>
+            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-8 text-left">Education</h3>
+            <div>
+              {education.map((item, index) => (
+                <TimelineItem key={`edu-${index}`} {...item} />
+              ))}
             </div>
           </section>
         </ScrollAnimation>
-        <ScrollAnimation delay={0.8}>
-          <section className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-10 text-left">Work experience</h2>
-            <div className="divide-y divide-white/10">
-              {/* Experience Item 1 */}
-              <div className="flex flex-col md:flex-row md:items-center py-8 gap-6">
-                <div className="md:w-1/4 text-white/70 text-base md:text-lg font-semibold mb-2 md:mb-0">2023 - 2024</div>
-                <div className="md:w-1/2">
-                  <div className="text-xl md:text-2xl font-bold text-white mb-1">Chegg Expert</div>
-                  <div className="text-white/60 text-sm mb-2">at <span className="font-bold underline">Chegg</span></div>
-                </div>
-                <div className="md:w-1/4 text-white/80 text-base md:text-lg">Solved academic questions and provided detailed solutions for students on the Chegg platform.</div>
-              </div>
-              {/* Experience Item 2 */}
-              <div className="flex flex-col md:flex-row md:items-center py-8 gap-6">
-                <div className="md:w-1/4 text-white/70 text-base md:text-lg font-semibold mb-2 md:mb-0">Oct 2024 - Present</div>
-                <div className="md:w-1/2">
-                  <div className="text-xl md:text-2xl font-bold text-white mb-1">AI Intern</div>
-                  <div className="text-white/60 text-sm mb-2">at <span className="font-bold underline">Arthicus Global Private Limited</span></div>
-                </div>
-                <div className="md:w-1/4 text-white/80 text-base md:text-lg">Working on AI-driven projects, developing intelligent solutions and contributing to research and development.</div>
-              </div>
-            </div>
-          </section>
-        </ScrollAnimation>
-        <ScrollAnimation delay={0.95}>
-          <section className="mb-12 rounded-3xl bg-gradient-to-br from-[#232336]/90 via-[#a18cd1]/40 to-[#fbc2eb]/40 p-8 md:p-12 shadow-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">My Slills </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-6">
-              {/* Tool Card Example */}
-              <div className="flex flex-col items-center bg-black/60 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
-                <img src="/Images/photoshop.png" alt="Photoshop" className="w-14 h-14 mb-3" />
-                <span className="text-white font-semibold text-lg">Photoshop</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/60 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
-                <img src="/Images/figma.png" alt="Figma" className="w-14 h-14 mb-3" />
-                <span className="text-white font-semibold text-lg">Figma</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/60 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
-                <img src="/Images/illustrator.png" alt="Illustrator" className="w-14 h-14 mb-3" />
-                <span className="text-white font-semibold text-lg">Illustrator</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/60 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
-                <img src="/Images/sketch.png" alt="Sketch" className="w-14 h-14 mb-3" />
-                <span className="text-white font-semibold text-lg">Sketch</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/60 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
-                <img src="/Images/blender.png" alt="Blender" className="w-14 h-14 mb-3" />
-                <span className="text-white font-semibold text-lg">Blender</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/60 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
-                <img src="/Images/html5.png" alt="HTML5" className="w-14 h-14 mb-3" />
-                <span className="text-white font-semibold text-lg">HTML5</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/60 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
-                <img src="/Images/css3.png" alt="CSS3" className="w-14 h-14 mb-3" />
-                <span className="text-white font-semibold text-lg">CSS3</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/60 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
-                <img src="/Images/notion.png" alt="Notion" className="w-14 h-14 mb-3" />
-                <span className="text-white font-semibold text-lg">Notion</span>
-              </div>
-            </div>
-          </section>
-        </ScrollAnimation>
-        <ScrollAnimation delay={1.0}>
-          <section className="mb-22 pb-8 rounded-3xl bg-gradient-to-br from-[#a18cd1]/80 via-[#fbc2eb]/40 to-[#232336]/90 p-10 shadow-2xl border-2 border-[#e6cfff]/30 relative overflow-hidden">
-            <div className="absolute top-0 right-0 opacity-20 text-[10rem] pointer-events-none select-none">
-              🚀
-            </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-left  mb-6 flex items-center gap-4">
-              <span className="inline-block bg-black/60 rounded-full px-4 py-2 text-2xl mr-2">Entrepreneurial Journey</span>
-            </h2>
-            <div className="text-[#e6cfff] text-2xl md:text-3xl font-bold mb-2">
-              <a href="https://www.innovimagine.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition">Innovimagine</a>
-            </div>
-            <div className="text-white/90 text-lg md:text-xl mb-8 font-semibold">
-              Co-founder | The ultimate tech solutions
-            </div>
-            <div className="bg-black/40 rounded-xl p-8 shadow-lg">
-              <p className="text-white/90 text-base md:text-lg leading-relaxed">
-                In our final year of B.Tech, four friends driven by a shared passion for technology and innovation came together to embark on an entrepreneurial journey. We founded <a href="https://www.innovimagine.com" target="_blank" rel="noopener noreferrer" className="underline text-[#e6cfff]">Innovimagine</a>, aspiring to deliver the ultimate tech solutions. Our adventure began with brainstorming sessions, late-night discussions, and a vision to make a difference. We designed and launched our official website, secured our domain, and established a strong online presence. With the encouragement and support of our college management, we gained momentum, organizing campus campaigns and printing posters to spread the word. Each step, from ideation to execution, was a testament to our teamwork and determination. Today, Innovimagine stands as a symbol of our relentless pursuit of innovation, empowering others and expanding our services to shape a brighter technological future.
-              </p>
+
+        <ScrollAnimation delay={0.3}>
+          <section>
+            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-8 text-left">Experience</h3>
+            <div>
+              {experience.map((item, index) => (
+                <TimelineItem key={`exp-${index}`} {...item} />
+              ))}
             </div>
           </section>
         </ScrollAnimation>
       </div>
-    </div>
-  )
-}
 
-export default Resume
+      {/* Entrepreneurial Journey Section - UPDATED */}
+      <ScrollAnimation delay={0.4}>
+        <section className="my-12 md:my-16">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-left text-white mb-10">
+            Entrepreneurial Journey
+          </h3>
+          <div className="bg-gradient-to-br from-[#232336]/90 via-[#2e2d2d]/60 to-[#18181b]/90 rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border border-[#a18cd1]/20">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-3">
+              {/* Updated H4 with styled tagline */}
+              <h4 className="text-xl md:text-2xl font-bold text-white">
+                Innovimagine
+                <span className="block text-sm text-white/70 font-normal mt-1"> {/* Styled tagline */} 
+                  Innovative Solutions for Unparalleled Digital Experiences
+                </span>
+              </h4>
+              <span className="text-sm text-[#e6cfff] font-semibold sm:ml-4 flex-shrink-0">(Co-founder, 2024 - Present)</span> {/* Added margin for spacing */}
+            </div>
+            {/* Updated Description */}
+            <div className="space-y-4 text-base text-white/80 leading-relaxed">
+              <p>
+                Co-founded Innovimagine during the final year of my B.Tech alongside three close friends, driven by a shared passion for building <span className="text-[#e6cfff] font-semibold">impactful, real-world tech solutions</span>. Our vision was to establish a <span className="text-[#e6cfff] font-semibold">dynamic innovation hub</span> focused on solving diverse challenges through creativity, collaboration, and cutting-edge technology.
+              </p>
+              <p>
+                As a co-founder, I took a leading role in designing and developing <span className="text-[#e6cfff] font-semibold">intelligent software and AI-powered solutions</span> tailored to address real-world problems across industries. I was deeply involved in the ideation, research, prototyping, and full-stack development of our products — ensuring that each solution was not just functional, but also scalable and user-centric.
+              </p>
+              <p>
+                My approach has always been <span className="text-[#e6cfff] font-semibold">problem-first</span> — identifying gaps in everyday systems, listening closely to end-user pain points, and engineering solutions that are both innovative and practical. I actively contributed to our technical strategy, participated in client interactions, and worked closely with our team to maintain agility in our workflows and effectiveness in our outcomes.
+              </p>
+              <p>
+                As an entrepreneur, I embrace a mindset of <span className="text-[#e6cfff] font-semibold">continuous learning, adaptability, and impact</span>. Whether it’s exploring new tech stacks, integrating emerging AI models, or refining user experiences, I strive to push boundaries and bring meaningful change through technology.
+              </p>
+            </div>
+            {/* Website Link */}
+            <a
+              href="https://www.innovimagine.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#e6cfff] transition border-b border-transparent hover:border-[#e6cfff]/50 focus:border-[#e6cfff] outline-none mt-4" // Added margin-top
+              aria-label="Visit Innovimagine Website"
+            >
+              <span>www.innovimagine.com</span>
+              <FaExternalLinkAlt size={12} />
+            </a>
+          </div>
+        </section>
+      </ScrollAnimation>
+
+      {/* Skills Section */}
+      <ScrollAnimation delay={0.5}> {/* Adjusted delay */}
+        <section>
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-left text-white mb-10">
+            My Skills
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <SkillCategory title="Frontend" skills={frontendSkills} />
+            <SkillCategory title="Backend & Languages" skills={backendSkills} />
+            <SkillCategory title="Design Tools" skills={designSkills} />
+          </div>
+        </section>
+      </ScrollAnimation>
+    </div>
+  );
+};
+
+export default Resume;

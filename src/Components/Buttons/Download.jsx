@@ -1,13 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Download = ({ onClick }) => {
+const Download = () => {
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = '/Images/AI_Intern-Goutham mathi Resume.pdf';
+    link.download = 'AI_Intern-Goutham mathi Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <StyledWrapper>
       <button
         className="button"
         style={{ '--clr': '#7808d0' }}
-        onClick={onClick}
+        onClick={handleDownload}
         type="button"
       >
         <span className="button__icon-wrapper">
@@ -44,7 +53,6 @@ const StyledWrapper = styled.div`
     text-overflow: ellipsis;
     transition: background-color 0.3s;
   }
-
   .button__icon-wrapper {
     flex-shrink: 0;
     width: 25px;
@@ -57,25 +65,20 @@ const StyledWrapper = styled.div`
     place-items: center;
     overflow: hidden;
   }
-
   .button:hover {
     background-color: #000;
   }
-
   .button:hover .button__icon-wrapper {
     color: #000;
   }
-
   .button__icon-svg--copy {
     position: absolute;
     transform: translate(-150%, 150%);
   }
-
   .button:hover .button__icon-svg:first-child {
     transition: transform 0.3s ease-in-out;
     transform: translate(150%, -150%);
   }
-
   .button:hover .button__icon-svg--copy {
     transition: transform 0.3s ease-in-out 0.1s;
     transform: translate(0);
