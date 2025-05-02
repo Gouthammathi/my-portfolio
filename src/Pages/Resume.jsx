@@ -43,7 +43,7 @@ const Resume = () => {
   ];
 
   const experience = [
-    { title: 'AI/ML Intern', institution: 'Artihcus Global', duration: 'July 2024 - Present', description: 'Gained practical experience in applying AI/ML concepts to real-world problems, working on projects involving data analysis and model development.' },
+    { title: 'AI/ML Intern', institution: 'Artihcus Global', duration: 'Oct 2024 - Present', description: 'Gained practical experience in applying AI/ML concepts to real-world problems, working on projects involving data analysis and model development.' },
     // Add other relevant experiences
   ];
 
@@ -90,7 +90,7 @@ const Resume = () => {
         <span className="inline-block px-5 py-1.5 rounded-full bg-dark-gray/50 border border-steel-blue/30 text-sm font-semibold text-accent-blue shadow-md">
           Resume
         </span>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-left text-off-white leading-tight">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-left bg-gradient-to-r from-accent-blue via-steel-blue to-accent-orange bg-clip-text text-transparent leading-tight">
           Education & Experience {/* Or keep "My Journey & Skills" */} 
         </h2>
       </div>
@@ -121,7 +121,10 @@ const Resume = () => {
         transition={{ staggerChildren: 0.15 }}
         className="mb-20" // Keep margin-bottom before next section
       >
-        <h3 className="text-3xl md:text-4xl font-bold text-left text-off-white mb-10 border-b border-steel-blue/30 pb-3">
+        <h3 className="text-3xl md:text-4xl font-bold text-left bg-gradient-to-r from-accent-blue via-steel-blue to-accent-orange bg-clip-text text-transparent mb-10 border-b border-steel-blue/30 pb-3">
+          Education
+        </h3>
+        <h3 className="text-3xl md:text-4xl font-bold text-left bg-gradient-to-r from-accent-orange via-steel-blue to-accent-blue bg-clip-text text-transparent mb-10 border-b border-steel-blue/30 pb-3">
           Experience
         </h3>
         <div> {/* Container for timeline items */} 

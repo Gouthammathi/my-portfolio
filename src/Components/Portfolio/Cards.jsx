@@ -1,10 +1,21 @@
 import React, { useRef } from 'react';
-import { motion } from 'framer-motion'; // Import motion
+import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { useEffect, useState } from 'react';
 
-// Video Preview Component (remains mostly the same, ensure colors fit)
+function isMobileDevice() {
+  if (typeof window === 'undefined') return false;
+  return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(window.navigator.userAgent);
+}
+
 function VideoPreview({ src, poster }) {
   const videoRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+  }, []);
+
   return (
     <video
       ref={videoRef}
@@ -14,8 +25,10 @@ function VideoPreview({ src, poster }) {
       muted
       loop
       preload="metadata"
-      onMouseEnter={() => videoRef.current?.play()}
-      onMouseLeave={() => videoRef.current?.pause()}
+      autoPlay
+      playsInline
+      onMouseEnter={() => !isMobile && videoRef.current?.play()}
+      onMouseLeave={() => !isMobile && videoRef.current?.pause()}
     />
   );
 }
@@ -35,28 +48,26 @@ const Cards = ({ project, align }) => {
   return (
     // Replaced article with motion.article and added variants
     <motion.article
-      variants={cardVariants} // Apply animation variants
-      // Removed initial/whileInView/viewport as it's handled by parent in Portfolio.jsx
+      variants={cardVariants}
       className={`
         group w-full max-w-3xl mx-auto
         flex flex-col md:flex-row ${align === 'right' ? 'md:flex-row-reverse' : ''}
-        // Updated background, border, shadow colors
         bg-charcoal/80
         rounded-xl md:rounded-2xl
         shadow-lg md:shadow-xl
         border border-dark-gray
         overflow-hidden
         transition-all duration-350 ease-out
-        // Updated hover shadow and border
         hover:shadow-[0_10px_30px_rgba(99,179,237,0.2)]
         hover:border-steel-blue/70
-        md:hover:scale-[1.02] md:hover:-translate-y-1 // Adjusted hover transform
-        ${hoverEffect} /* Apply perspective rotation */
-        transform-style-3d /* Enable 3D transforms */
+        md:hover:scale-[1.02] md:hover:-translate-y-1
+        ${hoverEffect}
+        transform-style-3d
+        gap-0 md:gap-0
+        p-0 md:p-0
       `}
     >
-      {/* Image/Video Section - Updated background */}
-      <div className="w-full md:w-[340px] h-48 md:h-auto flex-shrink-0 bg-dark-gray overflow-hidden">
+      <div className="w-full md:w-[340px] h-48 md:h-auto flex-shrink-0 bg-dark-gray overflow-hidden m-0">
         <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
           {project.video ? (
             <VideoPreview src={project.video} poster={project.image} />
