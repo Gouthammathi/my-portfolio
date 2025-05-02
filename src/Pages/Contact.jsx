@@ -47,7 +47,7 @@ const Contact = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      className="w-full max-w-4xl mx-auto px-4 lg:px-0 pb-16"
+      className="w-full max-w-4xl mx-auto px-4 sm:px-8 lg:px-0 pb-16"
     >
       <div className="flex flex-col items-start gap-4 mb-10">
         {/* Updated tag background, border, text colors */}

@@ -31,7 +31,7 @@ const ProfileBox = () => {
       <div className="w-full mb-5">
         <p className="text-xs text-light-gray mb-1">Specialization:</p>
         <p className="text-[11px] text-off-white font-semibold leading-snug">
-          AI & ML Engineer<br />and Software Developer
+          AI & ML Engineer<br /> Software Developer
         </p>
         <p className="text-xs text-light-gray mt-3 mb-1">Based in:</p>
         <p className="text-[11px] text-off-white font-semibold">Hyderabad, India</p>
