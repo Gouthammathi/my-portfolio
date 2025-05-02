@@ -6,27 +6,19 @@ export default {
   ],
   theme: {
     extend: {
-      // Temporarily comment out fontFamily extension
-      /*
       fontFamily: {
-        sans: ['Sora', 'sans-serif'], // Keep existing font
+        sans: ['Sora', 'ui-sans-serif', 'system-ui'], // Keep Sora + fallback
       },
-      */
       colors: {
-        // New Color Palette
-        'navy': '#0A192F',        // Deep navy background
-        'charcoal': '#1F2937',    // Darker elements, secondary background
-        'steel-blue': '#4B6A88',  // Subtle highlights or borders
-        'dark-gray': '#374151',   // Cards, darker UI elements
-        'light-gray': '#9CA3AF',  // Primary text color
-        'off-white': '#E2E8F0',   // Lighter text, headings
-        'accent-blue': '#63B3ED', // Electric blue accent
-        'accent-orange': '#ED8936',// Burnt orange accent
-        // Keep existing gradient colors if needed for specific highlights, or remove
-        // 'primary': '#a18cd1',
-        // 'secondary': '#fbc2eb',
+        'navy': '#0A192F',
+        'charcoal': '#1F2937',
+        'steel-blue': '#4B6A88',
+        'dark-gray': '#374151',
+        'light-gray': '#9CA3AF',
+        'off-white': '#E2E8F0',
+        'accent-blue': '#63B3ED',
+        'accent-orange': '#ED8936',
       },
-      // Add animation/keyframes if needed later for Framer Motion or CSS animations
     },
   },
   plugins: [],

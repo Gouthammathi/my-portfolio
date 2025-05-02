@@ -1,76 +1,73 @@
-/* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+@import "tailwindcss";
 
-/* Tailwind Directives - Use these instead of @import */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Custom Base Styles */
 @layer base {
   html {
-    /* Removed scroll-pt-20 */
-    @apply scroll-smooth;
+    @apply scroll-smooth scroll-pt-20; /* Added scroll-padding-top */
   }
   body {
-    /* Apply base font and colors */
-    @apply font-sans text-light-gray bg-navy;
-    /* Ensure font-family is explicitly set if needed, though Tailwind applies it via font-sans */
-    /* font-family: 'Sora', sans-serif; */
-    font-family: 'Sora', sans-serif; 
+    @apply font-sans text-gray-200 bg-[#121212]; /* Use theme background */
+    /* Removed radial-gradient, assuming #121212 is the desired base */
+    font-family: 'Sora', sans-serif; /* Ensure Sora font is applied */
   }
 }
 
-/* Custom Utilities */
 @layer utilities {
-  /* Gradient text utility */
   .gradient-text {
-    @apply bg-gradient-to-r from-accent-blue to-accent-orange text-transparent bg-clip-text;
+    @apply bg-gradient-to-r from-[#e2a1f8] to-[#a18cd1] text-transparent bg-clip-text; /* Adjusted gradient */
   }
 
-  /* Nav link base style (can be applied directly in components too) */
+  .gradient-border {
+    @apply border-transparent bg-gradient-to-r from-[#e2a1f8] to-[#a18cd1] bg-clip-border;
+  }
+
   .nav-link {
-    @apply text-light-gray hover:text-off-white transition-colors duration-300;
+    @apply text-gray-400 hover:text-white transition-colors duration-300; /* Adjusted base color */
   }
 
-  /* 3D Transform utilities */
-  .transform-style-3d { transform-style: preserve-3d; }
-  .rotate-y-2 { transform: rotateY(2deg); }
-  .-rotate-y-2 { transform: rotateY(-2deg); }
+  /* Removed .scroll-smooth as it's applied to html in base */
 
-  /* Custom scrollbar for specific elements */
-  .custom-scrollbar-new::-webkit-scrollbar {
-     @apply w-[5px];
-  }
-  .custom-scrollbar-new::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-  .custom-scrollbar-new::-webkit-scrollbar-thumb {
-     @apply bg-steel-blue/40 rounded;
-  }
-  .custom-scrollbar-new::-webkit-scrollbar-thumb:hover {
-     @apply bg-steel-blue/60;
+  .page-transition {
+    @apply transition-opacity duration-300 ease-in-out;
   }
 
-  /* Custom inner shadow */
-  .shadow-inner-custom {
-    box-shadow: inset 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+  /* Responsive container classes - Consider defining in tailwind.config.js if used widely */
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .responsive-text {
+    @apply text-base sm:text-lg lg:text-xl;
+  }
+
+  /* Simplified page transitions */
+  .page-enter {
+    @apply opacity-0;
+  }
+  .page-enter-active {
+    @apply opacity-100;
+  }
+  .page-exit {
+    @apply opacity-100;
+  }
+  .page-exit-active {
+    @apply opacity-0;
   }
 }
 
-/* Global Custom Scrollbar Styles (Applied to ::-webkit-scrollbar) */
+/* Custom Scrollbar - Refined */
 ::-webkit-scrollbar {
-  @apply w-2;
+  @apply w-2; /* width: 8px */
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-charcoal/50 rounded;
+  @apply bg-white/5 rounded; /* Subtle track */
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-steel-blue/60 rounded transition-colors duration-300;
+  @apply bg-gradient-to-b from-[#e2a1f8]/50 to-[#a18cd1]/50 rounded transition-colors duration-300;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-steel-blue/80;
+  @apply from-[#e2a1f8]/70 to-[#a18cd1]/70;
 }

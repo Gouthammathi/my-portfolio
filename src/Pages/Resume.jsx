@@ -1,7 +1,7 @@
 import React from 'react';
 // Removed ScrollAnimation import
 import { motion } from 'framer-motion'; // Import motion
-import { FaExternalLinkAlt, FaGraduationCap, FaBriefcase, FaRocket, FaLink } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGraduationCap, FaBriefcase, FaRocket } from 'react-icons/fa';
 
 // TimelineItem Component - Updated colors and added motion
 // TimelineItem Component - Simplified layout to match image
@@ -24,8 +24,8 @@ const TimelineItem = ({ title, institution, duration, description, link, isLeft,
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        // Consistent link style with icon
-        className="inline-flex items-center gap-1.5 text-xs text-accent-orange hover:text-accent-blue hover:underline underline-offset-2 mt-2 transition-colors duration-200"
+        // Keep link orange, maybe add underline on hover for clarity
+        className="inline-flex items-center gap-1 text-xs text-accent-orange hover:underline hover:text-accent-blue mt-2 transition"
       >
         View Details <FaExternalLinkAlt className="w-2.5 h-2.5" />
       </a>
@@ -162,10 +162,9 @@ const Resume = () => {
               href="https://www.innovimagine.com"
               target="_blank"
               rel="noopener noreferrer"
-              // Updated link style with icon
-              className="inline-flex items-center gap-1 text-accent-blue font-semibold hover:underline underline-offset-2 transition"
+              className="text-accent-blue font-semibold hover:underline underline-offset-2 transition"
             >
-              Innovimagine <FaLink className="w-3 h-3 opacity-70" />
+              Innovimagine
             </a>{' '}
             with three close friends — driven by a shared vision to create <span className="text-off-white font-medium">innovative tech solutions</span> that address real-world challenges. What started as brainstorming over coffee quickly evolved into a <span className="text-off-white font-medium">collaborative platform</span> where ideas turned into actionable projects.
           </p>

@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-// Added FaExternalLinkAlt for potential future external links if needed
-import { FaDownload, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaDownload, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'; // Removed unused icons
 
-// SpecializationCard Component - Emphasized Title
+// SpecializationCard Component - Updated for tags and image
 const SpecializationCard = ({ title, tags, description, image, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -13,8 +12,8 @@ const SpecializationCard = ({ title, tags, description, image, delay }) => (
     // Adjusted background, padding, added aspect ratio for image
     className="bg-dark-gray/60 border border-steel-blue/30 rounded-xl p-5 shadow-lg flex flex-col gap-3 overflow-hidden"
   >
-    <h4 className="text-lg font-semibold text-off-white">{title}</h4> {/* Emphasized Title */}
-    {/* Tags */}
+    <h4 className="text-lg font-semibold text-off-white">{title}</h4>
+    {/* Tags */} 
     <div className="flex flex-wrap gap-1.5">
       {tags.map((tag, i) => (
         <span
@@ -26,7 +25,7 @@ const SpecializationCard = ({ title, tags, description, image, delay }) => (
       ))}
     </div>
     <p className="text-sm text-light-gray/80 leading-relaxed flex-grow">{description}</p>
-    {/* Image */}
+    {/* Image */} 
     <div className="aspect-video w-full rounded-md overflow-hidden mt-2">
       <img src={image} alt={title} className="w-full h-full object-cover" />
     </div>
@@ -113,19 +112,18 @@ const AboutMe = () => {
               </p>
             </div>
           </div>
-          {/* Download Button - Enhanced hover/tap */}
+          {/* Download Button - Updated style */}
           <motion.button
-            whileHover={{ scale: 1.05, backgroundColor: "#7c3aed", boxShadow: "0 10px 15px -3px rgba(124, 58, 237, 0.3), 0 4px 6px -4px rgba(124, 58, 237, 0.2)" }}
+            whileHover={{ scale: 1.05, backgroundColor: "#7c3aed" /* Purple */, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
             onClick={handleDownload}
-            className="group mt-6 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-lg bg-purple-600 text-white text-sm font-semibold shadow-lg transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 focus:ring-offset-charcoal w-fit"
+            className="group mt-6 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-lg bg-purple-600 text-white text-sm font-semibold shadow-lg transition-colors duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 focus:ring-offset-charcoal w-fit"
           >
             <FaDownload className="text-base" />
             <span>Download CV</span>
           </motion.button>
         </div>
-        {/* Right: Contact Info - Enhanced Links */}
+        {/* Right: Contact Info - Updated layout */}
         <div className="flex-shrink-0 md:w-60 space-y-5 border-l border-steel-blue/30 pl-8 pt-2">
           <div className="flex flex-col gap-0.5">
             <p className="text-xs text-light-gray/70">Name</p>
@@ -133,11 +131,11 @@ const AboutMe = () => {
           </div>
           <div className="flex flex-col gap-0.5">
             <p className="text-xs text-light-gray/70">Phone</p>
-            <a href="tel:+919603672059" className="text-base text-off-white font-medium hover:text-accent-blue hover:underline underline-offset-2 transition-colors duration-200">+91-9603672059</a>
+            <a href="tel:+919603672059" className="text-base text-off-white font-medium hover:text-accent-blue transition">+91-9603672059</a>
           </div>
           <div className="flex flex-col gap-0.5">
             <p className="text-xs text-light-gray/70">Email</p>
-            <a href="mailto:goouthamm@gmail.com" className="text-base text-off-white font-medium hover:text-accent-blue hover:underline underline-offset-2 transition-colors duration-200 break-all">goouthamm@gmail.com</a>
+            <a href="mailto:goouthamm@gmail.com" className="text-base text-off-white font-medium hover:text-accent-blue transition break-all">goouthamm@gmail.com</a>
           </div>
           <div className="flex flex-col gap-0.5">
             <p className="text-xs text-light-gray/70">Location</p>
@@ -146,7 +144,9 @@ const AboutMe = () => {
         </div>
       </motion.section>
 
-      {/* Specialization Section - Emphasized Heading */}
+      {/* Removed Stats Grid */}
+
+      {/* Specialization Section - Updated title and data */}
       <motion.section
         initial="hidden"
         whileInView="visible"
