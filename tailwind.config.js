@@ -10,14 +10,17 @@ export default {
         sans: ['Sora', 'ui-sans-serif', 'system-ui'], // Keep Sora + fallback
       },
       colors: {
-        'navy': '#0A192F',
-        'charcoal': '#1F2937',
-        'steel-blue': '#4B6A88',
-        'dark-gray': '#374151',
-        'light-gray': '#9CA3AF',
-        'off-white': '#E2E8F0',
-        'accent-blue': '#63B3ED',
-        'accent-orange': '#ED8936',
+        'navy': '#1A2238', // Deep navy blue
+        'charcoal': '#232946', // Rich charcoal
+        'steel-blue': '#406882', // Vibrant steel blue
+        'dark-gray': '#393E46', // Strong dark gray
+        'light-gray': '#B8C1EC', // Soft light gray
+        'off-white': '#F4F4F6', // Clean off-white
+        'accent-blue': '#3ABEFF', // Bright soothing blue
+        'accent-orange': '#FFB86B', // Warm accent orange
+        'accent-green': '#43E97B', // Fresh accent green
+        'accent-purple': '#A259F7', // Modern accent purple
+        'accent-pink': '#FF6F91', // Playful accent pink
       },
     },
   },

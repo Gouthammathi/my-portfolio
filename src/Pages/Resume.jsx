@@ -3,28 +3,28 @@ import React from 'react';
 import { motion } from 'framer-motion'; // Import motion
 import { FaExternalLinkAlt, FaGraduationCap, FaBriefcase, FaRocket } from 'react-icons/fa';
 
-// TimelineItem Component - Updated colors and added motion
-// TimelineItem Component - Simplified layout to match image
-// TimelineItem Component - Added color emphasis
-// TimelineItem Component - Using orange accent for contrast
-const TimelineItem = ({ title, institution, duration, description, link, isLeft, delay }) => (
+
+
+// Keep the second (newer) TimelineItem component declaration
+const TimelineItem = ({ title, institution, duration, description, link, delay }) => (
   <motion.div
-    initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true, amount: 0.5 }}
-    transition={{ duration: 0.6, delay }}
-    className={`relative mb-8 pl-6 before:content-[''] before:absolute before:left-[-3px] before:top-[7px] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent-blue/80 ${isLeft ? 'md:pr-6 md:pl-0 md:text-right md:before:left-auto md:before:right-[-3px]' : ''}`}
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.5, delay }}
+    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }} // Added subtle scale on hover
+    // Added padding, background, border, shadow for a card-like appearance
+    className="relative mb-6 bg-dark-gray/50 border border-steel-blue/20 rounded-lg p-5 shadow-md"
   >
-    <p className="text-xs text-light-gray/70 mb-1 font-medium">{duration}</p> {/* Muted duration */}
-    <h4 className="text-lg font-semibold text-off-white mb-0.5">{title}</h4> {/* Bright title */}
-    <p className="text-sm text-accent-orange mb-1.5 font-medium">{institution}</p> {/* Accent ORANGE color for institution */}
-    <p className="text-sm text-light-gray/70 leading-relaxed">{description}</p> {/* Muted description */}
+    <p className="text-xs text-light-gray/70 mb-1 font-medium">{duration}</p>
+    <h4 className="text-lg font-semibold text-off-white mb-0.5">{title}</h4>
+    <p className="text-sm text-accent-orange mb-1.5 font-medium">{institution}</p>
+    <p className="text-sm text-light-gray/80 leading-relaxed">{description}</p> {/* Slightly brighter description */}
     {link && (
       <a
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        // Keep link orange, maybe add underline on hover for clarity
         className="inline-flex items-center gap-1 text-xs text-accent-orange hover:underline hover:text-accent-blue mt-2 transition"
       >
         View Details <FaExternalLinkAlt className="w-2.5 h-2.5" />
@@ -85,64 +85,53 @@ const Resume = () => {
       viewport={{ once: true, amount: 0.1 }}
       className="w-full max-w-5xl mx-auto px-4 lg:px-0 pb-16"
     >
-      {/* Header Tag and Title */}
-      <div className="flex flex-col items-start gap-4 mb-10">
-        {/* Updated tag */}
+      {/* Header Tag and Title - Adjusted title maybe? */} 
+      <div className="flex flex-col items-start gap-4 mb-12">
         <span className="inline-block px-5 py-1.5 rounded-full bg-dark-gray/50 border border-steel-blue/30 text-sm font-semibold text-accent-blue shadow-md">
           Resume
         </span>
-        {/* Updated heading */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-left text-off-white leading-tight">
-          My Journey & Skills
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-left text-off-white leading-tight">
+          Education & Experience {/* Or keep "My Journey & Skills" */} 
         </h2>
       </div>
 
-      {/* Combined Timeline Section - Increased bottom margin */}
-      <section className="mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 relative before:content-[''] before:absolute before:left-0 md:before:left-1/2 before:top-0 before:bottom-0 before:w-0.5 before:bg-steel-blue/30 before:-ml-[1px]">
-          {/* Education Column */}
-          <div className="mb-12 md:mb-0">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center gap-3 mb-8 md:justify-end border-b border-steel-blue/30 pb-2"
-            >
-              <h3 className="text-xl md:text-2xl font-semibold text-off-white">Education</h3>
-              <FaGraduationCap className="text-accent-blue text-2xl" />
-            </motion.div>
-            <motion.div variants={timelineVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              {education.map((item, index) => (
-                <TimelineItem key={index} {...item} isLeft={true} delay={index * 0.15} />
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Experience & Entrepreneurial Column */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }} // Slight delay for the second column header
-              className="flex items-center gap-3 mb-8 border-b border-steel-blue/30 pb-2"
-            >
-              <FaBriefcase className="text-accent-orange text-2xl" />
-              <h3 className="text-xl md:text-2xl font-semibold text-off-white">Experience</h3>
-            </motion.div>
-            <motion.div variants={timelineVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              {experience.map((item, index) => (
-                <TimelineItem key={index} {...item} isLeft={false} delay={index * 0.15} />
-              ))}
-            </motion.div>
-
-            {/* Removed Entrepreneurial Journey Timeline Items */}
-          </div>
+      {/* Education Section */} 
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ staggerChildren: 0.15 }}
+        className="mb-16" // Added margin-bottom
+      >
+        <h3 className="text-3xl md:text-4xl font-bold text-left text-off-white mb-10 border-b border-steel-blue/30 pb-3">
+          Education
+        </h3>
+        <div> {/* Container for timeline items */} 
+          {education.map((item, index) => (
+            <TimelineItem key={index} {...item} delay={index * 0.15} />
+          ))}
         </div>
-      </section>
+      </motion.section>
 
-      {/* NEW: Innovimagine Narrative Section */}
+      {/* Experience Section */} 
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ staggerChildren: 0.15 }}
+        className="mb-20" // Keep margin-bottom before next section
+      >
+        <h3 className="text-3xl md:text-4xl font-bold text-left text-off-white mb-10 border-b border-steel-blue/30 pb-3">
+          Experience
+        </h3>
+        <div> {/* Container for timeline items */} 
+          {experience.map((item, index) => (
+            <TimelineItem key={index} {...item} delay={index * 0.15} />
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Optional: Innovimagine Narrative Section */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
