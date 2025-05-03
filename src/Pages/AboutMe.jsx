@@ -3,14 +3,23 @@ import { motion } from 'framer-motion';
 import { FaDownload, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'; // Removed unused icons
 
 // SpecializationCard Component - Updated for tags and image
+// SpecializationCard Component - Updated with faster transitions
+// SpecializationCard Component - Updated with futuristic shadow and no transitions
 const SpecializationCard = ({ title, tags, description, image, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.3 }}
-    transition={{ duration: 0.6, delay }}
-    // Adjusted background, padding, added aspect ratio for image
-    className="bg-dark-gray/60 border border-steel-blue/30 rounded-xl p-5 shadow-lg flex flex-col gap-3 overflow-hidden"
+    transition={{   }}
+    whileHover={{ 
+      y: -10,
+      boxShadow: "0 10px 25px -5px rgba(99, 179, 237, 0.4), 0 0 15px rgba(99, 179, 237, 0.3), 0 0 5px rgba(79, 70, 229, 0.2), inset 0 0 2px rgba(255, 255, 255, 0.2)",
+      borderColor: "rgba(99, 179, 237, 0.7)",
+    }}
+    className="bg-dark-gray/60 border border-steel-blue/30 rounded-xl p-5 shadow-lg flex flex-col gap-3 overflow-hidden cursor-pointer"
+    style={{
+      boxShadow: "0 8px 20px -5px rgba(0, 0, 0, 0.3), 0 0 10px rgba(99, 179, 237, 0.2), 0 0 3px rgba(79, 70, 229, 0.1)",
+    }}
   >
     <h4 className="text-lg font-semibold text-off-white">{title}</h4>
     {/* Tags */} 
@@ -18,16 +27,21 @@ const SpecializationCard = ({ title, tags, description, image, delay }) => (
       {tags.map((tag, i) => (
         <span
           key={i}
-          className="inline-block px-2.5 py-0.5 rounded-md bg-charcoal/70 border border-steel-blue/40 text-accent-blue text-xs font-medium"
+          className="inline-block px-2.5 py-0.5 rounded-md bg-charcoal/70 border border-steel-blue/40 text-accent-blue text-xs font-medium hover:bg-accent-blue hover:text-navy"
         >
           {tag}
         </span>
       ))}
     </div>
     <p className="text-sm text-light-gray/80 leading-relaxed flex-grow">{description}</p>
-    {/* Image */} 
+    {/* Image without transition */} 
     <div className="aspect-video w-full rounded-md overflow-hidden mt-2">
-      <img src={image} alt={title} className="w-full h-full object-cover" />
+      <motion.img 
+        src={image} 
+        alt={title} 
+        className="w-full h-full object-cover" 
+        whileHover={{ scale: 1.1 }}
+      />
     </div>
   </motion.div>
 );
@@ -87,7 +101,7 @@ const AboutMe = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
-      className="max-w-5xl mx-auto px-4 lg:px-0 py-16" // Adjusted max-width and padding
+      className="max-w-5xl mx-auto px-4 lg:px-0 py-16"
     >
       {/* Intro Section - Updated layout and content */}
       <motion.section
@@ -97,27 +111,32 @@ const AboutMe = () => {
         {/* Left: Text and Download Button */}
         <div className="flex-1 flex flex-col justify-between gap-6">
           <div>
-            <span className="inline-block px-4 py-1 mb-6 rounded-md bg-dark-gray/70 border border-steel-blue/30 text-sm font-semibold text-off-white shadow-sm w-fit">
+            <span className="inline-block px-4 py-1 mb-6 rounded-2xl bg-dark-gray/70 border border-steel-blue/30 text-sm font-semibold text-off-white shadow-sm w-fit">
               About Me
             </span>
             <h2 className="text-4xl sm:text-5xl font-bold text-left text-off-white leading-tight mb-6">
               Turning complex problems into simple solutions
             </h2>
+            {/* === REPLACED CONTENT START === */}
             <div className="space-y-4 text-light-gray/80 text-base md:text-lg leading-relaxed">
               <p>
-                I often wonder — am I defined by the code I write, or the questions I keep asking between the lines? Each sunrise feels like an upgrade; not of my skills alone, but of how I see the world. I’m not just building software — <span className="text-off-white font-medium">I’m building myself</span>. Piece by piece. Project by project.
+                I'm an aspiring <span className="text-accent-blue font-medium">AI/ML engineer</span> with a passion for transforming data into meaningful solutions. Currently interning at <span className="text-off-white font-medium">Arthicus Global</span>, I’ve gained hands-on experience applying machine learning techniques to real-world challenges, from <span className="text-light-gray">data preprocessing</span> to <span className="text-light-gray">model development</span> and <span className="text-light-gray">evaluation</span>. 
               </p>
               <p>
-                To grow is to let curiosity lead — even if it takes you through detours. I may not have all the answers yet, but <span className="text-accent-blue font-semibold hover:underline underline-offset-2">I have the hunger to explore them</span>. And maybe that’s who I truly am — a work in progress with purpose.
+                My journey in tech is driven by <span className="text-accent-orange font-medium">curiosity and creativity</span> — I love building intelligent systems that can learn, adapt, and solve complex problems. I’m particularly interested in the intersection of <span className="text-off-white font-medium">AI and product design</span>, and I enjoy crafting intuitive user experiences alongside robust backend logic. 
+              </p>
+              <p>
+                When I'm not coding, you’ll likely find me exploring <span className="text-light-gray">emerging AI trends</span>, participating in tech summits, or collaborating with peers on innovative projects. I'm actively seeking opportunities that challenge me to grow while making a <span className="text-accent-blue font-medium">positive impact through technology</span>. 
               </p>
             </div>
+            {/* === REPLACED CONTENT END === */}
           </div>
           {/* Download Button - Updated style */}
           <motion.button
             whileHover={{ scale: 1.05, backgroundColor: "#7c3aed" /* Purple */, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.95 }}
             onClick={handleDownload}
-            className="group mt-6 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-lg bg-purple-600 text-white text-sm font-semibold shadow-lg transition-colors duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 focus:ring-offset-charcoal w-fit"
+            className="group mt-6 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-lg bg-purple-600 text-white text-sm font-semibold shadow-lg transition-colors duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-charcoal w-fit"
           >
             <FaDownload className="text-base" />
             <span>Download CV</span>

@@ -39,8 +39,8 @@ const Cards = ({ project, align, onClick }) => {
       onClick={onClick}
       style={{ cursor: onClick ? 'pointer' : 'default' }}
     >
-      {/* Media Section - Increased height */}
-      <div className={`w-full md:w-[340px] lg:w-[400px] h-56 md:h-64 flex-shrink-0 bg-dark-gray overflow-hidden m-0`}> {/* Increased h-56 md:h-64 */}
+      {/* Media Section - Consistent height for all cards */}
+      <div className={`w-full md:w-[340px] lg:w-[400px] h-56 md:h-64 flex-shrink-0 bg-dark-gray overflow-hidden m-0`}>
         {/* Link only if no onClick (mobile) */}
         {!onClick ? (
           <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
@@ -62,10 +62,10 @@ const Cards = ({ project, align, onClick }) => {
         )}
       </div>
 
-      {/* Project Info Section */}
+      {/* Project Info Section - Consistent padding and spacing */}
       <div className="flex flex-col justify-start p-4 md:p-6 lg:p-8 gap-2 md:gap-3 flex-grow">
         {/* Title and Link */}
-        <div className="flex items-center justify-between gap-3"> {/* Use justify-between */}
+        <div className="flex items-center justify-between gap-3">
           {/* Title (link or text based on onClick) */}
           {!onClick ? (
             <a
@@ -90,19 +90,21 @@ const Cards = ({ project, align, onClick }) => {
             className="text-light-gray/70 hover:text-accent-blue transition-colors duration-200 flex-shrink-0"
             aria-label={`Open ${project.title} in new tab`}
           >
-            <FaExternalLinkAlt size={14} md:size={16} />
+            <FaExternalLinkAlt size={14} />
           </a>
         </div>
 
-        {/* Description - Truncated with line-clamp */}
-        <p className="text-sm md:text-base text-light-gray leading-relaxed line-clamp-3"> {/* Added line-clamp-3 */}
+        {/* Description - Consistent line clamp for all cards */}
+        <p className="text-sm md:text-base text-light-gray leading-relaxed line-clamp-3">
           {project.description}
         </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 md:gap-2 mt-auto pt-2">
+        {/* Tags - Consistent styling */}
+        <div className="flex flex-wrap gap-1.5 mt-1">
           {project.types.map((type, i) => (
-            <span key={i} className="inline-block px-3 py-1 rounded-full bg-dark-gray/70 border border-steel-blue/40 text-accent-blue text-xs font-medium shadow-sm">{type.label}</span>
+            <span key={i} className="inline-block px-2 py-1 rounded-full bg-dark-gray/70 border border-steel-blue/40 text-accent-blue text-xs font-medium shadow-sm">
+              {type.label}
+            </span>
           ))}
         </div>
       </div>

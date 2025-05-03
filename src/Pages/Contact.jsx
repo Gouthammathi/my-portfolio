@@ -111,10 +111,17 @@ const Contact = () => {
           </div>
 
           {/* Map Placeholder - Updated background, border, text */}
+          {/* Replace Map Placeholder with Quote */}
           <div className="mt-6">
-            <h3 className="text-xl md:text-2xl font-semibold text-off-white mb-4 text-left">Find Me Here</h3>
-            <div className="aspect-video w-full bg-charcoal rounded-xl shadow-lg border border-dark-gray flex items-center justify-center text-light-gray/50">
-              <span>Map Placeholder</span>
+            <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-r from-dark-gray/80 to-charcoal/60 rounded-lg border border-steel-blue/30 overflow-hidden">
+              <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+              <div className="relative z-10 p-8 text-center max-w-lg">
+                <p className="text-lg md:text-xl font-medium text-off-white leading-relaxed">
+                  <span className="text-accent-blue">"</span>Innovation is where imagination meets expertise. Connect with me to transform ideas into impactful solutions.<span className="text-accent-blue">"</span>
+                </p>
+                <div className="mt-4 h-px w-full bg-gradient-to-r from-accent-orange via-steel-blue to-accent-blue opacity-50"></div>
+                <p className="mt-3 text-sm text-light-gray/80 italic">Goutham Mathi</p>
+              </div>
             </div>
           </div>
         </motion.div>
