@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'; // Combined imports
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import ProfileBox from './Components/ProfileBox';
 import Header from './Components/Header';
 import Home from './Pages/Home';
@@ -46,7 +47,7 @@ const App = () => {
       sectionElements.forEach(el => el && observer.unobserve(el));
     };
   }, []);
-<Analytics/>
+
   return (
     
     // Main container - Added relative positioning for background
@@ -86,6 +87,8 @@ const App = () => {
           <section id="contact" aria-label="Contact Section" className="min-h-screen px-4 lg:px-8 pt-8 lg:pt-6 pb-24 lg:pb-6">
             <Contact />
           </section>
+          <SpeedInsights/>
+          <Analytics/> 
         </main>
       </div>
 
@@ -96,7 +99,6 @@ const App = () => {
     </div>
   );
 };
-
 // Removed the duplicate function App() { ... }
 
 export default App
