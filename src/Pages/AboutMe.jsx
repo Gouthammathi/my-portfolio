@@ -49,8 +49,8 @@ const SpecializationCard = ({ title, tags, description, image, delay }) => (
 const AboutMe = () => {
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = '/Images/AI_Intern-Goutham mathi Resume.pdf';
-    link.download = 'AI_Intern-Goutham mathi Resume.pdf';
+    link.href = 'public/Images/Goutham Mathi Resume AI-Intern.pdf';
+    link.download = 'Goutham Mathi Resume AI-Intern.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
