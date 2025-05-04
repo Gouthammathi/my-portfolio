@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'; // Combined imports
+import { Analytics } from "@vercel/analytics/react"
 import ProfileBox from './Components/ProfileBox';
 import Header from './Components/Header';
 import Home from './Pages/Home';
@@ -45,8 +46,9 @@ const App = () => {
       sectionElements.forEach(el => el && observer.unobserve(el));
     };
   }, []);
-
+<Analytics/>
   return (
+    
     // Main container - Added relative positioning for background
     <div className="relative flex flex-col lg:flex-row min-h-screen bg-[#121212]">
       {/* Background Component - Placed here, fixed, behind content */}
