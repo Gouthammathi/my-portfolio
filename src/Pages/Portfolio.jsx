@@ -278,7 +278,7 @@ const Portfolio = () => {
       >
         <div className="flex flex-col items-start gap-4 mb-10">
           <span className="inline-block px-5 py-1.5 rounded-full bg-dark-gray/50 border border-steel-blue/30 text-sm font-semibold text-accent-blue shadow-md">
-            Portfolio
+            Projects
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-left text-off-white leading-tight">
             Check out my featured projects

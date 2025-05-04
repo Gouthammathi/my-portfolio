@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'; // Import motion
 
 const navItems = [
   { id: 'home', label: 'Home' },
-  { id: 'portfolio', label: 'Portfolio' },
+  { id: 'portfolio', label: 'Projects' },
   { id: 'about', label: 'About Me' },
   { id: 'resume', label: 'Resume' },
   { id: 'contact', label: 'Contact' },
