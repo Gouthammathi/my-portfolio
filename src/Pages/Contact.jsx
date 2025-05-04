@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // Removed ScrollAnimation import
 import { motion } from 'framer-motion'; // Import motion
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef();
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -17,17 +19,34 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-    console.log('Form Data Submitted:', formData);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    const success = Math.random() > 0.2;
-    if (success) {
+    
+    try {
+      // Add from_name and reply_to parameters to ensure EmailJS can process the form correctly
+      // These are standard EmailJS template parameters
+      const templateParams = {
+        from_name: formData.name,
+        reply_to: formData.email,
+        message: formData.message
+      };
+      
+      // Use sendForm for direct form submission or send for template parameters
+      const result = await emailjs.send(
+        'service_m3j4ifr', 
+        'template_zrs778e', 
+        templateParams,
+        '2oi3Ge-a1pdobQhRY'
+      );
+      
+      console.log('Email sent successfully:', result.text);
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
-    } else {
+    } catch (error) {
+      console.error('Failed to send email:', error);
       setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus(null), 5000);
     }
-    setIsSubmitting(false);
-    setTimeout(() => setSubmitStatus(null), 5000);
   };
 
   // Animation variants
@@ -137,7 +156,7 @@ const Contact = () => {
         >
           {/* Updated heading text color */}
           <h3 className="text-xl md:text-2xl font-semibold text-off-white mb-6 text-left">Send a Message</h3>
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form ref={form} onSubmit={handleSubmit} className="space-y-5">
             <div>
               {/* Updated label text color */}
               <label htmlFor="name" className="block text-sm font-medium text-light-gray mb-1.5">Your Name</label>
