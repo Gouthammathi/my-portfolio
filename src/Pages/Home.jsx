@@ -6,7 +6,7 @@ import { FaCode, FaDownload } from 'react-icons/fa';
 const Home = () => {
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = 'public/Images/Goutham Mathi Resume AI-Intern.pdf';
+    link.href = '/Images/Goutham Mathi Resume AI-Intern.pdf'; // Updated path - removed 'public/' prefix
     link.download = 'Goutham Mathi Resume AI-Intern.pdf';
     document.body.appendChild(link);
     link.click();
