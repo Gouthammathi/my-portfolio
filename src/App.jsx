@@ -54,7 +54,7 @@ const App = () => {
     <div className="relative flex flex-col lg:flex-row min-h-screen bg-[#121212]">
       {/* Background Component - Placed here, fixed, behind content */}
       {/* --- Adjusted opacity for better visual appeal --- */}
-      <Background className="fixed inset-0 z-0 opacity-80" /> {/* Lowered opacity (e.g., to 20%) */}
+      <Background className="fixed inset-0 z-0 opacity-90" /> {/* Lowered opacity (e.g., to 20%) */}
 
       {/* Sidebar - Added relative positioning and z-index */}
       <div role="complementary" className="relative z-10 w-full lg:w-[380px] lg:flex-shrink-0 p-4 lg:p-6 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
