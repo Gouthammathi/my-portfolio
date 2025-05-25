@@ -56,7 +56,13 @@ const Cards = ({ project, align, onClick }) => {
             {project.video ? (
               <VideoPreview src={project.video} poster={project.image} />
             ) : (
-              <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <img 
+                src={project.image} 
+                alt={project.title} 
+                width="400" 
+                height="225"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+              />
             )}
           </>
         )}

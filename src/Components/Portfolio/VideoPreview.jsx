@@ -52,10 +52,9 @@ function VideoPreview({ src, poster }) {
       poster={poster}
       muted
       loop
-      playsInline // Important for iOS
-      preload="metadata" // Load enough to get dimensions/poster
+      playsInline
+      preload="none" // Change from "metadata" to "none" for initial load
       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-      // Do not add controls or autoPlay here; handled by effect
     />
   );
 }

@@ -71,7 +71,7 @@ const projects = [
     id: 5,
     title: "Time Stamp Creator",
     image: "/Images/timestamp.png",
-    video: "public/Images/timestamps.mp4",
+    video: "/Images/timestamps.mp4",
     link: "https://yttimestamp.vercel.app/",
     
       description: "A web-based utility that simplifies the process of generating timestamp links for YouTube videos. It allows users to paste a YouTube video link and easily create clickable timestamps with corresponding titles for different sections of the video.",

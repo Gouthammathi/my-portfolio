@@ -28,7 +28,7 @@
   /* Removed .scroll-smooth as it's applied to html in base */
 
   .page-transition {
-    @apply transition-opacity duration-300 ease-in-out;
+    @apply transition-opacity duration-200 ease-in-out; /* Reduced from 300ms to 200ms */
   }
 
   /* Responsive container classes - Consider defining in tailwind.config.js if used widely */
