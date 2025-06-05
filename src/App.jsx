@@ -90,6 +90,20 @@ const App = () => {
           <SpeedInsights/>
           <Analytics/> 
         </main>
+
+        {/* Footer */}
+        <footer className="relative z-10 w-full py-6 text-center bg-[#121212]/90 backdrop-blur-md border-t border-gray-800/50">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex flex-col items-center space-y-2">
+              <p className="text-gray-400 text-sm font-light tracking-wide">
+                © {new Date().getFullYear()} Goutham Mathi
+              </p>
+              <p className="text-gray-500 text-xs font-light">
+                Crafted with passion and precision
+              </p>
+            </div>
+          </div>
+        </footer>
       </div>
 
       {/* Mobile Bottom Navigation - Added relative positioning and z-index */}

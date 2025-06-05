@@ -83,8 +83,23 @@ const projects = [
         { label: "YouTube Utility" },
         { label: "React" }
       ]
-    }
-    
+    },
+  {
+    id: 6,
+    title: "Ransome Font Generator",
+    image: "/Images/ransome.png",
+    video: "/Images/ransome.mp4",
+    link: "https://ransome-font-generator.vercel.app",
+    description: "A modern web application that generates stylish ransom note-style text with customizable fonts and effects. Built with React and Vite, it features Supabase backend integration for data persistence and API endpoints for dynamic image fetching. The app offers an intuitive interface for creating eye-catching text designs perfect for creative projects and social media content.",
+    overview: "This project implements a sophisticated text manipulation system that allows users to create ransom note-style text with various font combinations and effects. I developed a custom font rendering engine that handles multiple font families simultaneously, with real-time preview and instant copy functionality. The application integrates with Supabase for backend services, implementing secure authentication and real-time data synchronization. I also implemented RESTful APIs for fetching and managing images, ensuring efficient content delivery and caching strategies. The application features a responsive design that works seamlessly across all devices, with a focus on user experience and performance optimization.",
+    challenges: "Implementing smooth font switching and maintaining consistent text alignment across different font families required careful handling of font metrics and kerning. Integrating Supabase backend services while maintaining optimal performance presented unique challenges, which I solved by implementing efficient data fetching patterns and caching strategies. I also optimized the application's performance by implementing efficient font loading strategies and minimizing re-renders during text manipulation.",
+    technologies: "React.js, Vite, Tailwind CSS, Framer Motion, Custom Font Engine, Supabase,API",
+    types: [
+      { label: "React Js" },
+      { label: "Web App" },
+      { label: "Supabase" }
+    ]
+  },
 ];
 
 const Portfolio = () => {
