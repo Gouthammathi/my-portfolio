@@ -1,0 +1,12 @@
+{
+  "name": "figma-screenshot-capture",
+  "version": "1.0.0",
+  "description": "Script to capture screenshots from Figma prototypes",
+  "main": "capture-figma.js",
+  "scripts": {
+    "capture": "node capture-figma.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0"
+  }
+} 

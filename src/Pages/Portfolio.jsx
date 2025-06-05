@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Cards from '../Components/Portfolio/Cards';
+import FigmaShowcase from '../Components/FigmaShowcase';
 import { FaChevronLeft, FaChevronRight, FaTimes, FaExternalLinkAlt } from 'react-icons/fa';
 
 const projects = [
   {
     id: 1,
     title: "Nike 3D Web-app",
+    category: "Web Applications",
     image: "/Images/nike.png",
-    video: "/Images/nike.mp4",
+    video: "/Images/videos/nike.mp4",
     link: "https://gouthamnike.vercel.app/",
     description: "A fully responsive and visually striking web application showcasing Nike products with interactive 3D models. Built using Three.js, the app offers an immersive user experience with a sleek and modern design. Optimized for all devices, it blends performance with aesthetics to engage users effectively.",
     overview: "This project demonstrates advanced 3D rendering techniques using Three.js integrated with React. I implemented custom shaders for realistic material rendering and optimized the 3D models for web performance. The application features smooth animations, dynamic lighting effects, and intuitive camera controls that allow users to examine products from any angle. Key technical achievements include efficient texture mapping, responsive design that adapts the 3D experience across devices, and implementation of a custom color picker that updates the 3D model in real-time.",
@@ -23,8 +25,9 @@ const projects = [
   {
     id: 2,
     title: "Emotion Detection",
+    category: "AI & Machine Learning",
     image: "/Images/emotion.png",
-    video: "/Images/emotion.mp4",
+    video: "/Images/videos/emotion.mp4",
     link: "https://github.com/Gouthammathi/EmotionDetection",
     description: "This project uses machine learning to detect human emotions by analyzing facial expressions. It can recognize feelings like happy, sad, angry, or surprised from images or live video. Built with tools like OpenCV and trained on emotion datasets, it shows the detected emotion with a simple and clear visual output.",
     overview: "This emotion detection system leverages computer vision and deep learning to analyze facial expressions in real-time. I implemented a convolutional neural network (CNN) architecture trained on the FER-2013 dataset containing over 35,000 facial expression images. The system first detects faces using Haar cascades, extracts facial landmarks with dlib, and then classifies the emotion into seven categories: angry, disgust, fear, happy, sad, surprise, and neutral. The model achieves 68% accuracy on validation data, which is competitive with state-of-the-art approaches given the subjective nature of emotion interpretation.",
@@ -39,8 +42,9 @@ const projects = [
   {
     id: 3,
     title: "Pedestrian Detection",
+    category: "AI & Machine Learning",
     image: "/Images/pede.png",
-    video: "/Images/Pedestrian.mp4",
+    video: "/Images/videos/Pedestrian.mp4",
     link: "https://github.com/Gouthammathi/PedestrianDetection",
     description: "A computer vision project that detects pedestrians in images or video using machine learning. It highlights people with bounding boxes to make them easy to spot. Built with OpenCV and trained models, it can be used in real-time for applications like smart surveillance or driver assistance systems.",
     overview: "This pedestrian detection system implements the Histogram of Oriented Gradients (HOG) algorithm combined with a Support Vector Machine (SVM) classifier for robust human detection in various environments. I enhanced the standard implementation with multi-scale detection to identify pedestrians at different distances from the camera. The system processes video at 15-20 frames per second on standard hardware, making it suitable for real-time applications. I also implemented a tracking algorithm that maintains consistent IDs for detected pedestrians across frames, enabling path analysis and reducing computational load.",
@@ -54,8 +58,9 @@ const projects = [
   {
     id: 4,
     title: "Credit Card Fraud Detection",
+    category: "AI & Machine Learning",
     image: "/Images/credit.png",
-    video: "/Images/credit.mp4",
+    video: "/Images/videos/credit.mp4",
     link: "https://applicationdevelopment.streamlit.app/",
     description: "A machine learning project that identifies fraudulent credit card transactions by analyzing patterns in transaction data. It uses classification algorithms to detect suspicious activity with high accuracy, helping prevent financial fraud. The model was trained on real-world datasets and tested for performance using metrics like precision and recall.",
     overview: "This fraud detection system employs an ensemble of machine learning algorithms including Random Forest, XGBoost, and Isolation Forest to identify anomalous transaction patterns. I implemented a feature engineering pipeline that extracts temporal patterns and transaction characteristics, significantly improving detection accuracy. The system handles highly imbalanced data (less than 0.2% fraud cases) through SMOTE oversampling and cost-sensitive learning approaches. The deployed model achieves 99.3% accuracy with a precision of 0.92 and recall of 0.87 for fraudulent transactions, outperforming single-algorithm approaches by 7-12%.",
@@ -70,23 +75,24 @@ const projects = [
   {
     id: 5,
     title: "Time Stamp Creator",
+    category: "Web Applications",
     image: "/Images/timestamp.png",
-    video: "/Images/timestamps.mp4",
+    video: "/Images/videos/timestamps.mp4",
     link: "https://yttimestamp.vercel.app/",
-    
-      description: "A web-based utility that simplifies the process of generating timestamp links for YouTube videos. It allows users to paste a YouTube video link and easily create clickable timestamps with corresponding titles for different sections of the video.",
-      overview: "The tool enhances user engagement and accessibility by enabling quick navigation to specific video segments. Built with React and deployed on Vercel, the app parses video duration and user-defined labels to produce formatted timestamp links. This is especially useful for content creators, educators, or anyone who needs to share precise video references. The UI is minimal, fast, and optimized for usability across devices.",
-      challenges: "Ensuring accurate parsing of varied YouTube URL formats and handling edge cases like invalid timestamps or missing video metadata were key technical challenges. The app was also designed to support a seamless user experience with minimal delay and smooth copy-to-clipboard functionality.",
-      technologies: "React, JavaScript, Vercel, HTML5, CSS3",
-      types: [
-        { label: "Web Application" },
-        { label: "YouTube Utility" },
-        { label: "React" }
-      ]
-    },
+    description: "A web-based utility that simplifies the process of generating timestamp links for YouTube videos. It allows users to paste a YouTube video link and easily create clickable timestamps with corresponding titles for different sections of the video.",
+    overview: "The tool enhances user engagement and accessibility by enabling quick navigation to specific video segments. Built with React and deployed on Vercel, the app parses video duration and user-defined labels to produce formatted timestamp links. This is especially useful for content creators, educators, or anyone who needs to share precise video references. The UI is minimal, fast, and optimized for usability across devices.",
+    challenges: "Ensuring accurate parsing of varied YouTube URL formats and handling edge cases like invalid timestamps or missing video metadata were key technical challenges. The app was also designed to support a seamless user experience with minimal delay and smooth copy-to-clipboard functionality.",
+    technologies: "React, JavaScript, Vercel, HTML5, CSS3",
+    types: [
+      { label: "Web Application" },
+      { label: "YouTube Utility" },
+      { label: "React" }
+    ]
+  },
   {
     id: 6,
     title: "Ransome Font Generator",
+    category: "Web Applications",
     image: "/Images/ransome.png",
     video: "/Images/ransome.mp4",
     link: "https://ransome-font-generator.vercel.app",
@@ -282,6 +288,18 @@ const Portfolio = () => {
     );
   }
 
+  // Group projects by category
+  const groupedProjects = projects.reduce((acc, project) => {
+    if (!acc[project.category]) {
+      acc[project.category] = [];
+    }
+    acc[project.category].push(project);
+    return acc;
+  }, {});
+
+  // Define category order
+  const categoryOrder = ["AI & Machine Learning", "Web Applications"];
+
   return (
     <> {/* Start React Fragment */}
       <motion.div // Main Page Container
@@ -300,28 +318,38 @@ const Portfolio = () => {
           </h2>
         </div>
         
-        <motion.div // Grid Container
-          variants={gridVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 gap-y-16 justify-items-center pb-16"
-        >
-          {projects.map((project, idx) => (
-            <Cards
-              key={project.id}
-              project={project}
-              align={idx % 2 === 0 ? 'left' : 'right'}
-              onClick={isDesktop ? () => { setSelectedIdx(idx); setCarouselIdx(0); } : undefined}
-            />
-          ))}
-        </motion.div> {/* End Grid Container - Comment moved or removed */}
+        {categoryOrder.map(category => (
+          groupedProjects[category] && (
+            <div key={category} className="mb-16">
+              <h3 className="text-2xl font-bold text-accent-blue mb-8">{category}</h3>
+              <motion.div // Grid Container
+                variants={gridVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+                className="grid grid-cols-1 gap-y-16 justify-items-center"
+              >
+                {groupedProjects[category].map((project, idx) => (
+                  <Cards
+                    key={project.id}
+                    project={project}
+                    align={idx % 2 === 0 ? 'left' : 'right'}
+                    onClick={isDesktop ? () => { setSelectedIdx(projects.indexOf(project)); setCarouselIdx(0); } : undefined}
+                  />
+                ))}
+              </motion.div>
+            </div>
+          )
+        ))}
 
-      </motion.div> {/* End Main Page Container - Comment moved or removed */}
+        {/* Figma Showcase Section */}
+        <div className="mt-24">
+          <FigmaShowcase />
+        </div>
+      </motion.div>
 
       {/* Render the modal content variable */}
       {modalContent}
-
     </> 
   );
 };
