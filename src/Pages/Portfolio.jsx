@@ -109,184 +109,18 @@ const projects = [
 ];
 
 const Portfolio = () => {
-  // Animation variants
-  const sectionVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.5 } },
-  };
-
-  const gridVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delay: 0.2, // Delay grid appearance slightly
-        staggerChildren: 0.3, // Stagger project cards
-      },
-    },
-  };
-
   const [selectedIdx, setSelectedIdx] = useState(null);
-  const [isDesktop, setIsDesktop] = useState(false); // Define isDesktop state here
-
-  // Check screen size on mount and resize
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 768px)'); // Tailwind's 'md' breakpoint
-    const handleResize = () => setIsDesktop(mediaQuery.matches);
-    handleResize(); // Initial check
-    mediaQuery.addEventListener('change', handleResize);
-    return () => mediaQuery.removeEventListener('change', handleResize); // Cleanup listener
-  }, []); // Empty dependency array ensures this runs only once on mount and cleans up on unmount
-
-  const closeModal = () => setSelectedIdx(null);
-  const showPrev = () => setSelectedIdx((idx) => (idx === 0 ? projects.length - 1 : idx - 1));
-  const showNext = () => setSelectedIdx((idx) => (idx === projects.length - 1 ? 0 : idx + 1));
-  const selectedProject = selectedIdx !== null ? projects[selectedIdx] : null;
-
-  // Carousel state
   const [carouselIdx, setCarouselIdx] = useState(0);
-  const carouselMedia = selectedProject ? [selectedProject.video || selectedProject.image] : [];
-  const carouselNext = () => setCarouselIdx((i) => (i + 1) % carouselMedia.length);
-  const carouselPrev = () => setCarouselIdx((i) => (i - 1 + carouselMedia.length) % carouselMedia.length);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
 
-  // --- New: Define modal content variable --- 
-  let modalContent = null;
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
 
-  // --- New: Assign modal JSX conditionally --- 
-  if (selectedProject && isDesktop) {
-    modalContent = (
-      <motion.div // <<<--- Modal Overlay Container
-        key="modal" // Add a key for Framer Motion AnimatePresence (good practice)
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-6 lg:p-8"
-        onClick={closeModal}
-      >
-        {/* Prev Project Button (Side) */}
-        <button
-          onClick={(e) => { e.stopPropagation(); showPrev(); setCarouselIdx(0); }}
-          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-dark-gray/60 text-off-white hover:bg-accent-blue transition-colors text-xl md:text-2xl"
-          aria-label="Previous project"
-        >
-          <FaChevronLeft />
-        </button>
-
-        {/* Inner Modal Container */}
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="relative bg-charcoal rounded-2xl shadow-2xl max-w-3xl lg:max-w-4xl w-full h-[90vh] md:h-[85vh] flex flex-col mx-auto overflow-hidden border border-steel-blue/30"
-          onClick={(e) => e.stopPropagation()} // Prevent closing modal when clicking inside
-        >
-          {/* Close Button */}
-          <button
-            onClick={closeModal}
-            className="absolute top-3 right-3 text-light-gray/70 hover:text-accent-orange text-2xl z-20 p-2 rounded-full bg-dark-gray/50 hover:bg-dark-gray transition-colors"
-            aria-label="Close project details"
-          >
-            <FaTimes />
-          </button>
-
-          {/* Carousel Section */}
-          <div className="relative w-full bg-dark-gray flex items-center justify-center overflow-hidden flex-shrink-0 max-h-[40vh] md:max-h-[45vh]">
-            {/* ... Carousel content (nav buttons, media display) ... */}
-             {/* Carousel Navigation (Left) */} 
-             {carouselMedia.length > 1 && (
-                <button
-                  onClick={(e) => { e.stopPropagation(); carouselPrev(); }}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 rounded-full p-2.5 text-off-white hover:bg-accent-blue/80 transition-colors z-10"
-                  aria-label="Previous media"
-                >
-                  <FaChevronLeft size={18} />
-                </button>
-              )}
-
-              {/* Media Display */} 
-              {carouselMedia[carouselIdx].endsWith('.mp4') ? (
-                <video src={carouselMedia[carouselIdx]} controls autoPlay loop muted className="w-full h-full object-contain" />
-              ) : (
-                <img src={carouselMedia[carouselIdx]} alt={selectedProject.title} className="w-full h-full object-contain" />
-              )}
-
-              {/* Carousel Navigation (Right) */} 
-              {carouselMedia.length > 1 && (
-                <button
-                  onClick={(e) => { e.stopPropagation(); carouselNext(); }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 rounded-full p-2.5 text-off-white hover:bg-accent-blue/80 transition-colors z-10"
-                  aria-label="Next media"
-                >
-                  <FaChevronRight size={18} />
-                </button>
-              )}
-          </div>
-
-          {/* Project Details Section */}
-          <div className="p-6 md:p-8 lg:p-10 flex flex-col gap-4 md:gap-5 overflow-y-auto flex-grow">
-            {/* Title as Link */}
-            <a 
-              href={selectedProject.link} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-xl md:text-2xl lg:text-3xl font-bold text-off-white hover:text-accent-blue transition-colors inline-flex items-center gap-2 group"
-              aria-label={`Visit project: ${selectedProject.title}`}
-            >
-              {selectedProject.title}
-              <FaExternalLinkAlt size={14} md:size={16} className="opacity-70 group-hover:opacity-100 transition-opacity" />
-            </a>
-            
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2"> 
-              {selectedProject.types.map((type, i) => (
-                <span key={i} className="inline-block px-3 py-1 rounded-full bg-dark-gray/70 border border-steel-blue/40 text-accent-blue text-xs font-medium shadow-sm">{type.label}</span>
-              ))}
-            </div>
-
-            {/* Description */}
-            <p className="text-light-gray text-sm md:text-base leading-relaxed md:leading-loose pt-2">
-              {selectedProject.description}
-            </p>
-            
-            {/* Project Overview Section */}
-            <div className="mt-2">
-              <h3 className="text-lg font-semibold text-accent-blue mb-2">Project Overview</h3>
-              <p className="text-light-gray text-sm md:text-base leading-relaxed">
-                {selectedProject.overview}
-              </p>
-            </div>
-            
-            {/* Challenges Section */}
-            <div className="mt-2">
-              <h3 className="text-lg font-semibold text-accent-blue mb-2">Challenges & Solutions</h3>
-              <p className="text-light-gray text-sm md:text-base leading-relaxed">
-                {selectedProject.challenges}
-              </p>
-            </div>
-            
-            {/* Technologies Section */}
-            <div className="mt-2">
-              <h3 className="text-lg font-semibold text-accent-blue mb-2">Technologies Used</h3>
-              <p className="text-light-gray text-sm md:text-base leading-relaxed">
-                {selectedProject.technologies}
-              </p>
-            </div>
-          </div>
-        </motion.div> {/* <<<--- End Inner Modal Container */} 
-
-        {/* Next Project Button (Side) */}
-        <button
-          onClick={(e) => { e.stopPropagation(); showNext(); setCarouselIdx(0); }}
-          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-dark-gray/60 text-off-white hover:bg-accent-orange transition-colors text-xl md:text-2xl"
-          aria-label="Next project"
-        >
-          <FaChevronRight />
-        </button>
-
-      </motion.div> // <<<--- End Modal Overlay Container
-    );
-  }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Group projects by category
   const groupedProjects = projects.reduce((acc, project) => {
@@ -298,59 +132,155 @@ const Portfolio = () => {
   }, {});
 
   // Define category order
-  const categoryOrder = ["AI & Machine Learning", "Web Applications"];
+  const categoryOrder = ['Web Applications', 'Mobile Applications', 'AI/ML Projects'];
+
+  // Animation variants
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        duration: 0.6,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const gridVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  // Modal content
+  const modalContent = selectedIdx !== null && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+      onClick={() => setSelectedIdx(null)}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="relative w-full max-w-4xl bg-dark-gray rounded-xl overflow-hidden shadow-2xl"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Modal content */}
+        <div className="relative">
+          {/* Close button */}
+          <button
+            onClick={() => setSelectedIdx(null)}
+            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-dark-gray/80 text-off-white hover:bg-accent-blue transition-colors"
+          >
+            <FaTimes size={20} />
+          </button>
+
+          {/* Project content */}
+          <div className="p-6 md:p-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-off-white mb-4">
+              {projects[selectedIdx].title}
+            </h3>
+            <p className="text-light-gray mb-6">
+              {projects[selectedIdx].description}
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {projects[selectedIdx].types.map((type, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 rounded-full bg-accent-blue/10 text-accent-blue text-sm"
+                >
+                  {type.label}
+                </span>
+              ))}
+            </div>
+            <a
+              href={projects[selectedIdx].link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-blue/10 hover:bg-accent-blue/20 text-accent-blue hover:text-accent-orange transition-all duration-300"
+            >
+              <span>View Project</span>
+              <FaExternalLinkAlt size={14} />
+            </a>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
 
   return (
-    <> {/* Start React Fragment */}
-      <motion.div // Main Page Container
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="w-full max-w-5xl mx-auto px-4 lg:px-0"
-      >
-        <div className="flex flex-col items-start gap-4 mb-10">
-          <span className="inline-block px-5 py-1.5 rounded-full bg-dark-gray/50 border border-steel-blue/30 text-sm font-semibold text-accent-blue shadow-md">
-            Projects
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-left text-off-white leading-tight">
-            Check out my featured projects
-          </h2>
-        </div>
-        
-        {categoryOrder.map(category => (
-          groupedProjects[category] && (
-            <div key={category} className="mb-16">
-              <h3 className="text-2xl font-bold text-accent-blue mb-8">{category}</h3>
-              <motion.div // Grid Container
-                variants={gridVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-                className="grid grid-cols-1 gap-y-16 justify-items-center"
-              >
-                {groupedProjects[category].map((project, idx) => (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={sectionVariants}
+      className="w-full max-w-5xl mx-auto px-4 lg:px-0"
+    >
+      <div className="flex flex-col items-start gap-4 mb-10">
+        <span className="inline-block px-5 py-1.5 rounded-full bg-dark-gray/50 border border-steel-blue/30 text-sm font-semibold text-accent-blue shadow-md">
+          Projects
+        </span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-left text-off-white leading-tight">
+          Check out my featured projects
+        </h2>
+      </div>
+      
+      {categoryOrder.map(category => (
+        groupedProjects[category] && (
+          <motion.div
+            key={category}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+            className="mb-16"
+          >
+            <h3 className="text-2xl font-bold text-accent-blue mb-8">{category}</h3>
+            <motion.div
+              variants={gridVariants}
+              className="grid grid-cols-1 gap-y-16 justify-items-center"
+            >
+              {groupedProjects[category].map((project, idx) => (
+                <motion.div
+                  key={project.id}
+                  variants={gridVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                >
                   <Cards
-                    key={project.id}
                     project={project}
                     align={idx % 2 === 0 ? 'left' : 'right'}
                     onClick={isDesktop ? () => { setSelectedIdx(projects.indexOf(project)); setCarouselIdx(0); } : undefined}
                   />
-                ))}
-              </motion.div>
-            </div>
-          )
-        ))}
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        )
+      ))}
 
-        {/* Figma Showcase Section */}
-        <div className="mt-24">
-          <FigmaShowcase />
-        </div>
+      {/* Figma Showcase Section */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={sectionVariants}
+        className="mt-24"
+      >
+        <FigmaShowcase />
       </motion.div>
 
-      {/* Render the modal content variable */}
+      {/* Render the modal content */}
       {modalContent}
-    </> 
+    </motion.div>
   );
 };
 
