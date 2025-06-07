@@ -131,8 +131,14 @@ const Portfolio = () => {
     return acc;
   }, {});
 
-  // Define category order
-  const categoryOrder = ['Web Applications', 'Mobile Applications', 'AI/ML Projects'];
+  // Define category order with AI/ML first
+  const categoryOrder = ['AI & Machine Learning', 'Web Applications'];
+
+  // Update project categories to match
+  const updatedProjects = projects.map(project => ({
+    ...project,
+    category: project.category === 'AI/ML Projects' ? 'AI & Machine Learning' : project.category
+  }));
 
   // Animation variants
   const sectionVariants = {
@@ -172,43 +178,105 @@ const Portfolio = () => {
         className="relative w-full max-w-4xl bg-dark-gray rounded-xl overflow-hidden shadow-2xl"
         onClick={e => e.stopPropagation()}
       >
-        {/* Modal content */}
-        <div className="relative">
-          {/* Close button */}
+        {/* Close button */}
+        <button
+          onClick={() => setSelectedIdx(null)}
+          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-dark-gray/80 text-off-white hover:bg-accent-blue transition-colors"
+        >
+          <FaTimes size={20} />
+        </button>
+
+        {/* Carousel Section */}
+        <div className="relative w-full bg-dark-gray flex items-center justify-center overflow-hidden flex-shrink-0 max-h-[40vh] md:max-h-[45vh]">
+          {/* Carousel Navigation (Left) */}
           <button
-            onClick={() => setSelectedIdx(null)}
-            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-dark-gray/80 text-off-white hover:bg-accent-blue transition-colors"
+            onClick={(e) => { e.stopPropagation(); setCarouselIdx(0); }}
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 rounded-full p-2.5 text-off-white hover:bg-accent-blue/80 transition-colors z-10"
+            aria-label="Previous media"
           >
-            <FaTimes size={20} />
+            <FaChevronLeft size={18} />
           </button>
 
-          {/* Project content */}
-          <div className="p-6 md:p-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-off-white mb-4">
-              {projects[selectedIdx].title}
-            </h3>
-            <p className="text-light-gray mb-6">
-              {projects[selectedIdx].description}
+          {/* Media Display */}
+          {projects[selectedIdx].video ? (
+            <video 
+              src={projects[selectedIdx].video} 
+              controls 
+              autoPlay 
+              loop 
+              muted 
+              className="w-full h-full object-contain"
+            />
+          ) : (
+            <img 
+              src={projects[selectedIdx].image} 
+              alt={projects[selectedIdx].title} 
+              className="w-full h-full object-contain"
+            />
+          )}
+
+          {/* Carousel Navigation (Right) */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setCarouselIdx(1); }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 rounded-full p-2.5 text-off-white hover:bg-accent-blue/80 transition-colors z-10"
+            aria-label="Next media"
+          >
+            <FaChevronRight size={18} />
+          </button>
+        </div>
+
+        {/* Project Details Section */}
+        <div className="p-6 md:p-8 lg:p-10 flex flex-col gap-4 md:gap-5 overflow-y-auto max-h-[50vh]">
+          {/* Title as Link */}
+          <a 
+            href={projects[selectedIdx].link} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-xl md:text-2xl lg:text-3xl font-bold text-off-white hover:text-accent-blue transition-colors inline-flex items-center gap-2 group"
+          >
+            {projects[selectedIdx].title}
+            <FaExternalLinkAlt size={14} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+          </a>
+          
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2"> 
+            {projects[selectedIdx].types.map((type, i) => (
+              <span 
+                key={i} 
+                className="inline-block px-3 py-1 rounded-full bg-dark-gray/70 border border-steel-blue/40 text-accent-blue text-xs font-medium shadow-sm"
+              >
+                {type.label}
+              </span>
+            ))}
+          </div>
+
+          {/* Description */}
+          <p className="text-light-gray text-sm md:text-base leading-relaxed md:leading-loose pt-2">
+            {projects[selectedIdx].description}
+          </p>
+          
+          {/* Project Overview Section */}
+          <div className="mt-2">
+            <h3 className="text-lg font-semibold text-accent-blue mb-2">Project Overview</h3>
+            <p className="text-light-gray text-sm md:text-base leading-relaxed">
+              {projects[selectedIdx].overview}
             </p>
-            <div className="flex flex-wrap gap-2 mb-6">
-              {projects[selectedIdx].types.map((type, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 rounded-full bg-accent-blue/10 text-accent-blue text-sm"
-                >
-                  {type.label}
-                </span>
-              ))}
-            </div>
-            <a
-              href={projects[selectedIdx].link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-blue/10 hover:bg-accent-blue/20 text-accent-blue hover:text-accent-orange transition-all duration-300"
-            >
-              <span>View Project</span>
-              <FaExternalLinkAlt size={14} />
-            </a>
+          </div>
+          
+          {/* Challenges Section */}
+          <div className="mt-2">
+            <h3 className="text-lg font-semibold text-accent-blue mb-2">Challenges & Solutions</h3>
+            <p className="text-light-gray text-sm md:text-base leading-relaxed">
+              {projects[selectedIdx].challenges}
+            </p>
+          </div>
+          
+          {/* Technologies Section */}
+          <div className="mt-2">
+            <h3 className="text-lg font-semibold text-accent-blue mb-2">Technologies Used</h3>
+            <p className="text-light-gray text-sm md:text-base leading-relaxed">
+              {projects[selectedIdx].technologies}
+            </p>
           </div>
         </div>
       </motion.div>
