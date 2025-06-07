@@ -134,30 +134,27 @@ const Portfolio = () => {
   // Define category order with AI/ML first
   const categoryOrder = ['AI & Machine Learning', 'Web Applications'];
 
-  // Update project categories to match
-  const updatedProjects = projects.map(project => ({
-    ...project,
-    category: project.category === 'AI/ML Projects' ? 'AI & Machine Learning' : project.category
-  }));
-
   // Animation variants
   const sectionVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1,
+      y: 0,
       transition: { 
-        duration: 0.6,
-        staggerChildren: 0.2
+        duration: 0.4,
+        ease: "easeOut"
       }
     }
   };
 
   const gridVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        staggerChildren: 0.15
+        duration: 0.4,
+        ease: "easeOut"
       }
     }
   };
@@ -286,8 +283,7 @@ const Portfolio = () => {
   return (
     <motion.div
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      animate="visible"
       variants={sectionVariants}
       className="w-full max-w-5xl mx-auto px-4 lg:px-0"
     >
@@ -305,8 +301,7 @@ const Portfolio = () => {
           <motion.div
             key={category}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            animate="visible"
             variants={sectionVariants}
             className="mb-16"
           >
@@ -320,8 +315,7 @@ const Portfolio = () => {
                   key={project.id}
                   variants={gridVariants}
                   initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
+                  animate="visible"
                 >
                   <Cards
                     project={project}
@@ -338,8 +332,7 @@ const Portfolio = () => {
       {/* Figma Showcase Section */}
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="visible"
         variants={sectionVariants}
         className="mt-24"
       >
